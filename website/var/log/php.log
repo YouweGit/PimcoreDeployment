@@ -1,0 +1,17 @@
+[09-Sep-2015 14:43:38 Europe/Berlin] PHP Warning:  array_diff_assoc(): Argument #1 is not an array in /data/projects/pimcore-migration-dev/pimcore/modules/admin/controllers/SettingsController.php on line 341
+[09-Sep-2015 14:43:38 Europe/Berlin] PHP Stack trace:
+[09-Sep-2015 14:43:38 Europe/Berlin] PHP   1. {main}() /data/projects/pimcore-migration-dev/index.php:0
+[09-Sep-2015 14:43:38 Europe/Berlin] PHP   2. Pimcore::run() /data/projects/pimcore-migration-dev/index.php:18
+[09-Sep-2015 14:43:38 Europe/Berlin] PHP   3. Zend_Controller_Front->dispatch() /data/projects/pimcore-migration-dev/pimcore/lib/Pimcore.php:285
+[09-Sep-2015 14:43:38 Europe/Berlin] PHP   4. Zend_Controller_Dispatcher_Standard->dispatch() /data/projects/pimcore-migration-dev/pimcore/lib/Zend/Controller/Front.php:954
+[09-Sep-2015 14:43:38 Europe/Berlin] PHP   5. Zend_Controller_Action->dispatch() /data/projects/pimcore-migration-dev/pimcore/lib/Zend/Controller/Dispatcher/Standard.php:308
+[09-Sep-2015 14:43:38 Europe/Berlin] PHP   6. Admin_SettingsController->setSystemAction() /data/projects/pimcore-migration-dev/pimcore/lib/Zend/Controller/Action.php:516
+[09-Sep-2015 14:43:38 Europe/Berlin] PHP   7. array_diff_assoc() /data/projects/pimcore-migration-dev/pimcore/modules/admin/controllers/SettingsController.php:341
+[09-Sep-2015 14:43:38 Europe/Berlin] PHP Warning:  Invalid argument supplied for foreach() in /data/projects/pimcore-migration-dev/pimcore/modules/admin/controllers/SettingsController.php on line 343
+[09-Sep-2015 14:43:38 Europe/Berlin] PHP Stack trace:
+[09-Sep-2015 14:43:38 Europe/Berlin] PHP   1. {main}() /data/projects/pimcore-migration-dev/index.php:0
+[09-Sep-2015 14:43:38 Europe/Berlin] PHP   2. Pimcore::run() /data/projects/pimcore-migration-dev/index.php:18
+[09-Sep-2015 14:43:38 Europe/Berlin] PHP   3. Zend_Controller_Front->dispatch() /data/projects/pimcore-migration-dev/pimcore/lib/Pimcore.php:285
+[09-Sep-2015 14:43:38 Europe/Berlin] PHP   4. Zend_Controller_Dispatcher_Standard->dispatch() /data/projects/pimcore-migration-dev/pimcore/lib/Zend/Controller/Front.php:954
+[09-Sep-2015 14:43:38 Europe/Berlin] PHP   5. Zend_Controller_Action->dispatch() /data/projects/pimcore-migration-dev/pimcore/lib/Zend/Controller/Dispatcher/Standard.php:308
+[09-Sep-2015 14:43:38 Europe/Berlin] PHP   6. Admin_SettingsController->setSystemAction() /data/projects/pimcore-migration-dev/pimcore/lib/Zend/Controller/Action.php:516

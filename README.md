@@ -34,6 +34,7 @@ Add vhost to apache:
 
 Create database:
 
+change credentials in tools/scripts/config.sh
     user: root
     pass: root
     db:   pimcore_migdev

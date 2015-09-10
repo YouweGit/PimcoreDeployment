@@ -32,7 +32,7 @@
     <params>
       <host>localhost</host>
       <username>root</username>
-      <password>synocom</password>
+      <password>root</password>
       <dbname>pimcore_migdev</dbname>
       <port>3306</port>
     </params>

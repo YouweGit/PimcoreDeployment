@@ -1,12 +1,14 @@
 <?php
 
-class YouweDeploy_Definition {
+namespace Deployment;
+
+class Definition {
 
     public $path;
     private $db;
 
     function __construct() {
-        $this->db = Pimcore_Resource::get();
+        $this->db = \Pimcore\Resource::get();
         $this->path = PIMCORE_WEBSITE_PATH . '/var/deployment/migration/classes/';
     }
 
@@ -14,18 +16,18 @@ class YouweDeploy_Definition {
      * Exports class definition to json file
      */
     public function export() {
-        Pimcore_File::setDefaultMode(0755);
+        \Pimcore\File::setDefaultMode(0755);
 
         if (!is_dir($this->path)) {
-            Pimcore_File::mkdir($this->path);
+            \Pimcore\File::mkdir($this->path);
         }
 
-        $list = new Object_Class_List();
+        $list = new \Object_Class_List();
         foreach ($list->load() as $class) {
             $json = $this->generateClassDefinitionJson($class);
             $filename = 'class_' . $class->getName() . '.json';
             echo $filename . "\n";
-            Pimcore_File::put($this->path . $filename, $json);
+            \Pimcore\File::put($this->path . $filename, $json);
         }
     }
 

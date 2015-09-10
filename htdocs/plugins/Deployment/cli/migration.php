@@ -19,7 +19,7 @@ $memory = memory_get_usage();
 //execute in admin mode
 define("PIMCORE_ADMIN", true);
 
-$actionen = ['migrate', 'create', 'wipe', 'cache-clear', 'insert-propel-etim', 'load-initial-fixtures', 'load-initial-dev-fixtures', 'import-definition', 'export-definition'];
+$actionen = ['import-definition', 'export-definition'];
 
 try {
     $opts = new Zend_Console_Getopt(array(
@@ -47,45 +47,13 @@ try {
 Version::disable();
 Pimcore_Model_Cache::disable();
 
+$def = new \Deployment\Definition();
 
-$migration = new YouweDeploy_Migration();
 switch ($opts->action) {
-    case 'migrate':
-        $migration->migrate();
-        break;
-    case 'create':
-        $migration->create();
-        print "Migration has been created \n";
-        break;
-    case 'load-initial-fixtures':
-        $migration->insertInitialData();
-        print "Initial fixtures load task done \n";
-        break;
-    case 'insert-propel-etim':
-        $migration->insertPropelEtim();
-        print "Initial fixtures load task done \n";
-        break;
-    case 'load-initial-dev-fixtures':
-        $migration->insertInitialDevFixtures();
-        print "Initial DEV fixtures load task done \n";
-        break;
-    case 'wipe':
-        print 'Dropping all tables and views in 3';
-        sleep(3);
-        $migration->dropAllTablesAndViews();
-        print "Dropped all tables and views (BEWARE OF ERROR NOTICES) \n";
-        break;
-    case 'cache-clear':
-        $clearCache = new YouweDeploy_Cache();
-        $clearCache->doClearCache();
-        break;
-
     case 'import-definition':
-        $def = new YouweDeploy_Definition();
         $def->import();
         break;
     case 'export-definition':
-        $def = new YouweDeploy_Definition();
         $def->export();
         break;
 }

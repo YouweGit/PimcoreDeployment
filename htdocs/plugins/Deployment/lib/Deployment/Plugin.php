@@ -37,7 +37,7 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
         // implement your own logic here
         return true;
 	}
-	
+
 	public static function uninstall (){
         // implement your own logic here
         return true;
@@ -47,4 +47,16 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
         // implement your own logic here
         return true;
 	}
+
+    public static function getConfig()
+    {
+        return new Zend_Config_Xml(PIMCORE_PLUGINS_PATH . '/YouweDeploy/config.xml', null, true);
+
+    }
+
+    public static function setConfig($config)
+    {
+        $writer = new Zend_Config_Writer_Xml();
+        $writer->write(PIMCORE_PLUGINS_PATH . '/YouweDeploy/config.xml', $config);
+    }
 }

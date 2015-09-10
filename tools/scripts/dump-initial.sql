@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.6.10, for osx10.7 (x86_64)
 --
--- Host: 127.0.0.1    Database: pimcore-migdev
+-- Host: 127.0.0.1    Database: pimcore_migdev
 -- ------------------------------------------------------
 -- Server version	5.6.10
 
@@ -16,12 +16,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Current Database: `pimcore-migdev`
+-- Current Database: `pimcore_migdev`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `pimcore-migdev` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `pimcore_migdev` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
-USE `pimcore-migdev`;
+USE `pimcore_migdev`;
 
 --
 -- Table structure for table `assets`

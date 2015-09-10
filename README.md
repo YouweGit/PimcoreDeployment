@@ -1,6 +1,8 @@
 PIMCORE MIGRATION EXTENSION DEVELOPMENT PROJECT
 -----------------------------------------------
 
+version: Pimcore 3.x
+
 Use this project to develop the Deployment plugin.
 
 
@@ -32,9 +34,9 @@ Add vhost to apache:
 
 Create database:
 
-    user: pimcore-migdev
-    pass: pimcore-migdev
-    db:   pimcore-migdev
+    user: root
+    pass: root
+    db:   pimcore_migdev
 
 Fork the git and clone your fork to:
 

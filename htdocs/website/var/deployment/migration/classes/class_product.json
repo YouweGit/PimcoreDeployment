@@ -3,7 +3,7 @@
 	"name":"product",
 	"description":null,
 	"creationDate":1441962223,
-	"modificationDate":1441962479,
+	"modificationDate":1441966257,
 	"userOwner":2,
 	"userModification":null,
 	"parentClass":null,
@@ -21,7 +21,7 @@
 		"title":null,
 		"width":null,
 		"height":null,
-		"collapsible":null,
+		"collapsible":false,
 		"collapsed":null,
 		"bodyStyle":null,
 		"datatype":"layout",
@@ -35,7 +35,7 @@
 				"title":null,
 				"width":null,
 				"height":null,
-				"collapsible":null,
+				"collapsible":false,
 				"collapsed":null,
 				"bodyStyle":null,
 				"datatype":"layout",
@@ -71,7 +71,7 @@
 								"mandatory":false,
 								"noteditable":false,
 								"index":false,
-								"locked":null,
+								"locked":false,
 								"style":"",
 								"permissions":null,
 								"datatype":"data",
@@ -94,7 +94,7 @@
 								"mandatory":false,
 								"noteditable":false,
 								"index":false,
-								"locked":null,
+								"locked":false,
 								"style":"",
 								"permissions":null,
 								"datatype":"data",
@@ -121,7 +121,7 @@
 								"mandatory":false,
 								"noteditable":false,
 								"index":false,
-								"locked":null,
+								"locked":false,
 								"style":"",
 								"permissions":null,
 								"datatype":"data",
@@ -147,7 +147,7 @@
 										"mandatory":false,
 										"noteditable":false,
 										"index":false,
-										"locked":null,
+										"locked":false,
 										"style":"",
 										"permissions":null,
 										"datatype":"data",
@@ -165,12 +165,12 @@
 								"height":"",
 								"maxTabs":"",
 								"labelWidth":"",
-								"tooltip":null,
-								"mandatory":null,
-								"noteditable":null,
+								"tooltip":"",
+								"mandatory":false,
+								"noteditable":false,
 								"index":null,
-								"locked":null,
-								"style":null,
+								"locked":false,
+								"style":"",
 								"permissions":null,
 								"datatype":"data",
 								"columnType":null,
@@ -181,13 +181,13 @@
 								"visibleSearch":true
 							}
 						],
-						"locked":null
+						"locked":false
 					}
 				],
-				"locked":null
+				"locked":false
 			}
 		],
-		"locked":null
+		"locked":false
 	},
 	"icon":null,
 	"previewUrl":null

@@ -1,10 +1,4 @@
 <?php
-/**
- * User: Manea Eugen
- * Email: e.manea@youwe.nl
- * 7/4/14 12:26 PM
- */
-
 
 require_once 'bootstrap.php';
 Zend_Session::start();
@@ -24,16 +18,19 @@ $actionen = ['import-definition', 'export-definition'];
 try {
     $opts = new Zend_Console_Getopt(array(
         'action|a=s' => '',
+        'classes|c-s' => '',
         'ignore-maintenance-mode' => 'forces the script execution even when the maintenance mode is activated',
     ));
     $opts->parse();
 
-    //action should be resync, backup or cache-clear
-    //defaults to resync
-
-
     if (!isset($opts->action) || !in_array($opts->action, $actionen)) {
-        throw new Exception('Action parameter should be ' . var_export($actionen,1));
+        throw new Exception(
+            "\n" .
+            'Action parameter should be import-definition or export-definition.' . "\n" .
+            'Classes parameter should list the classes comma seperated.' . "\n" .
+            'Example:' . "\n" .
+            'php migration.php -a export-definition -c product,person' . "\n" .
+            '');
     }
 
 } catch (Zend_Console_Getopt_Exception $e) {
@@ -44,6 +41,13 @@ try {
     exit(1);
 }
 
+//echo "Action:  " . $opts->action . "\n";
+//echo "Classes: " . var_export($opts->classes,1) . "\n";
+
+$classes = ( $opts->classes !== true ? explode(',', $opts->classes) : false );
+
+//echo "Classes: " . var_export($classes,1) . "\n";
+
 Version::disable();
 Pimcore_Model_Cache::disable();
 
@@ -51,9 +55,11 @@ $def = new \Deployment\Definition();
 
 switch ($opts->action) {
     case 'import-definition':
-        $def->import();
+        $def->import($classes);
         break;
     case 'export-definition':
-        $def->export();
+        $def->export($classes);
         break;
 }
+
+

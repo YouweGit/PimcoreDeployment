@@ -15,7 +15,7 @@ class Definition {
     /**
      * Exports class definition to json file
      */
-    public function export() {
+    public function export($classes = false) {
         \Pimcore\File::setDefaultMode(0755);
 
         if (!is_dir($this->path)) {
@@ -49,7 +49,7 @@ class Definition {
     /**
      * Imports classes from json files
      */
-    public function import() {
+    public function import($classes = false) {
         $views = $this->db->fetchAll("SELECT CONCAT(TABLE_SCHEMA,'.',TABLE_NAME) AS view
                     FROM information_schema.TABLES
                     WHERE TABLE_TYPE = 'VIEW' AND TABLE_SCHEMA = " . $this->db->quote($this->db->getConfig()['dbname']));

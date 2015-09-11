@@ -49,4 +49,11 @@ Put initial database structure/data in place:
     cp dump-initial.sql dump.sql
     ./reload-local.sh
 
+Set permissions:
+
+    find . -type d -exec chmod 755 {} \;
+    find . -type f -exec chmod 644 {} \;
+    find . -type f -name "*.sh" -exec chmod 774 {} \;
+
+
 

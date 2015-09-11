@@ -1,11 +1,11 @@
 {
-	"id":2,
-	"name":"team",
+	"id":5,
+	"name":"order",
 	"description":null,
-	"creationDate":1441961497,
-	"modificationDate":1441961645,
+	"creationDate":1441963456,
+	"modificationDate":1441963570,
 	"userOwner":2,
-	"userModification":null,
+	"userModification":2,
 	"parentClass":null,
 	"useTraits":null,
 	"allowInherit":false,
@@ -21,7 +21,7 @@
 		"title":null,
 		"width":null,
 		"height":null,
-		"collapsible":false,
+		"collapsible":null,
 		"collapsed":null,
 		"bodyStyle":null,
 		"datatype":"layout",
@@ -35,7 +35,7 @@
 				"title":null,
 				"width":null,
 				"height":null,
-				"collapsible":false,
+				"collapsible":null,
 				"collapsed":null,
 				"bodyStyle":null,
 				"datatype":"layout",
@@ -58,20 +58,46 @@
 						"permissions":null,
 						"childs":[
 							{
-								"fieldtype":"input",
-								"width":"",
-								"queryColumnType":"varchar",
-								"columnType":"varchar",
-								"columnLength":255,
-								"phpdocType":"string",
-								"regex":"",
-								"name":"Name",
-								"title":"Name",
+								"fieldtype":"datetime",
+								"queryColumnType":"bigint(20)",
+								"columnType":"bigint(20)",
+								"phpdocType":"\\Pimcore\\Date",
+								"defaultValue":null,
+								"useCurrentDate":false,
+								"name":"createdAt",
+								"title":"createdAt",
 								"tooltip":"",
 								"mandatory":false,
 								"noteditable":false,
 								"index":false,
-								"locked":false,
+								"locked":null,
+								"style":"",
+								"permissions":null,
+								"datatype":"data",
+								"relationType":false,
+								"invisible":false,
+								"visibleGridView":false,
+								"visibleSearch":false
+							},
+							{
+								"fieldtype":"numeric",
+								"width":"",
+								"defaultValue":null,
+								"queryColumnType":"double",
+								"columnType":"double",
+								"phpdocType":"float",
+								"integer":false,
+								"unsigned":false,
+								"minValue":"",
+								"maxValue":"",
+								"decimalPrecision":"",
+								"name":"Price",
+								"title":"Price",
+								"tooltip":"",
+								"mandatory":false,
+								"noteditable":false,
+								"index":false,
+								"locked":null,
 								"style":"",
 								"permissions":null,
 								"datatype":"data",
@@ -91,16 +117,16 @@
 								"lazyLoading":false,
 								"classes":[
 									{
-										"classes":"person"
+										"classes":"product"
 									}
 								],
-								"name":"Players",
-								"title":"Players",
+								"name":"Products",
+								"title":"Products",
 								"tooltip":"",
 								"mandatory":false,
 								"noteditable":false,
 								"index":false,
-								"locked":false,
+								"locked":null,
 								"style":"",
 								"permissions":null,
 								"datatype":"data",
@@ -110,13 +136,13 @@
 								"visibleSearch":false
 							}
 						],
-						"locked":false
+						"locked":null
 					}
 				],
-				"locked":false
+				"locked":null
 			}
 		],
-		"locked":false
+		"locked":null
 	},
 	"icon":null,
 	"previewUrl":null

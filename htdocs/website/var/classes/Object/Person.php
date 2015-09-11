@@ -1,12 +1,11 @@
 <?php 
 
-/** Generated at 2015-09-10T15:56:54+02:00 */
+/** Generated at 2015-09-11T10:54:05+02:00 */
 
 /**
 * Inheritance: no
 * Variants   : no
-* Changed by : admin (2)
-* IP:          127.0.0.1
+* Changed by : system (0)
 */
 
 
@@ -15,16 +14,22 @@ namespace Pimcore\Model\Object;
 
 
 /**
-* @method static \Pimcore\Model\Object\Person getByFirst_name ($value, $limit = 0) 
-* @method static \Pimcore\Model\Object\Person getByLast_name ($value, $limit = 0) 
+* @method static \Pimcore\Model\Object\Person getByFirstname ($value, $limit = 0) 
+* @method static \Pimcore\Model\Object\Person getByLastname ($value, $limit = 0) 
+* @method static \Pimcore\Model\Object\Person getByEmail ($value, $limit = 0) 
+* @method static \Pimcore\Model\Object\Person getByGender ($value, $limit = 0) 
+* @method static \Pimcore\Model\Object\Person getByPersona ($value, $limit = 0) 
 */
 
 class Person extends Concrete {
 
 public $o_classId = 1;
 public $o_className = "person";
-public $first_name;
-public $last_name;
+public $firstname;
+public $lastname;
+public $email;
+public $gender;
+public $persona;
 
 
 /**
@@ -38,48 +43,117 @@ public static function create($values = array()) {
 }
 
 /**
-* Get first_name - first_name
+* Get firstname - first_name
 * @return string
 */
-public function getFirst_name () {
-	$preValue = $this->preGetValue("first_name"); 
+public function getFirstname () {
+	$preValue = $this->preGetValue("firstname"); 
 	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
-	$data = $this->first_name;
+	$data = $this->firstname;
 	return $data;
 }
 
 /**
-* Set first_name - first_name
-* @param string $first_name
+* Set firstname - first_name
+* @param string $firstname
 * @return \Pimcore\Model\Object\Person
 */
-public function setFirst_name ($first_name) {
-	$this->first_name = $first_name;
+public function setFirstname ($firstname) {
+	$this->firstname = $firstname;
 	return $this;
 }
 
 /**
-* Get last_name - last_name
+* Get lastname - last_name
 * @return string
 */
-public function getLast_name () {
-	$preValue = $this->preGetValue("last_name"); 
+public function getLastname () {
+	$preValue = $this->preGetValue("lastname"); 
 	if($preValue !== null && !\Pimcore::inAdmin()) { 
 		return $preValue;
 	}
-	$data = $this->last_name;
+	$data = $this->lastname;
 	return $data;
 }
 
 /**
-* Set last_name - last_name
-* @param string $last_name
+* Set lastname - last_name
+* @param string $lastname
 * @return \Pimcore\Model\Object\Person
 */
-public function setLast_name ($last_name) {
-	$this->last_name = $last_name;
+public function setLastname ($lastname) {
+	$this->lastname = $lastname;
+	return $this;
+}
+
+/**
+* Get email - Email
+* @return string
+*/
+public function getEmail () {
+	$preValue = $this->preGetValue("email"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
+		return $preValue;
+	}
+	$data = $this->email;
+	return $data;
+}
+
+/**
+* Set email - Email
+* @param string $email
+* @return \Pimcore\Model\Object\Person
+*/
+public function setEmail ($email) {
+	$this->email = $email;
+	return $this;
+}
+
+/**
+* Get gender - Gender
+* @return string
+*/
+public function getGender () {
+	$preValue = $this->preGetValue("gender"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
+		return $preValue;
+	}
+	$data = $this->gender;
+	return $data;
+}
+
+/**
+* Set gender - Gender
+* @param string $gender
+* @return \Pimcore\Model\Object\Person
+*/
+public function setGender ($gender) {
+	$this->gender = $gender;
+	return $this;
+}
+
+/**
+* Get persona - Persona
+* @return string
+*/
+public function getPersona () {
+	$preValue = $this->preGetValue("persona"); 
+	if($preValue !== null && !\Pimcore::inAdmin()) { 
+		return $preValue;
+	}
+	$data = $this->persona;
+	return $data;
+}
+
+/**
+* Set persona - Persona
+* @param string $persona
+* @return \Pimcore\Model\Object\Person
+*/
+public function setPersona ($persona) {
+	$this->persona = $persona;
 	return $this;
 }
 

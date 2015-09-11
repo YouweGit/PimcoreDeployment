@@ -25,9 +25,9 @@ class Definition {
         $list = new \Object_Class_List();
         foreach ($list->load() as $class) {
             $json = $this->generateClassDefinitionJson($class);
-            $filename = 'class_' . $class->getName() . '.json';
-            echo $filename . "\n";
-            \Pimcore\File::put($this->path . $filename, $json);
+            $filename = $this->path . 'class_' . $class->getName() . '.json';
+            echo "Exporting: " . str_replace(PIMCORE_WEBSITE_PATH, '', $filename) . " (" . strlen($json) . " bytes)\n";
+            \Pimcore\File::put($filename, $json);
         }
     }
 
@@ -38,11 +38,11 @@ class Definition {
      */
     public function generateClassDefinitionJson($class){
 
-        $data = Webservice_Data_Mapper::map($class, "Webservice_Data_Class_Out", "out");
+        $data = \Webservice\Data\Mapper::map($class, '\Webservice\Data\ClassDefinition\Out', "out");
         unset($data->fieldDefinitions);
 
-        $json = Zend_Json::encode($data);
-        $json = Zend_Json::prettyPrint($json);
+        $json = \Zend_Json::encode($data);
+        $json = \Zend_Json::prettyPrint($json);
         return $json;
     }
 
@@ -59,7 +59,7 @@ class Definition {
         }
 
         foreach (glob($this->path . "*.json") as $filename) {
-            echo "$filename size " . filesize($filename) . "\n";
+            echo "Importing: " . str_replace(PIMCORE_WEBSITE_PATH, '', $filename) . " (" . filesize($filename) . " bytes)\n";
             $this->save($filename);
         }
     }
@@ -73,21 +73,21 @@ class Definition {
     public function save($filename)
     {
         $json = file_get_contents($filename);
-        $importData = Zend_Json::decode($json);
+        $importData = \Zend_Json::decode($json);
         $id = $this->db->quote($importData['id']);
         $name = $this->db->quote($importData['name']);
         $userOwner = $this->db->quote($importData['userOwner']);
 
-        $class = Object_Class::getById($id);
+        $class = \Object_Class::getById($id);
         if (!$class) {
             $this->db->query("INSERT INTO classes(id,name, userOwner) VALUES($id, $name, $userOwner)");
         }
         else {
-            $this->db->query("UPDATE classes SET name = '$name', userOwner = '$userOwner' WHERE id=$id");
+            $this->db->query("UPDATE classes SET name = $name, userOwner = $userOwner WHERE id=$id");
         }
-        $class = Object_Class::getById($id);
+        $class = \Object_Class::getById($id);
 
-        return Object_Class_Service::importClassDefinitionFromJson($class, $json);
+        return \Object_Class_Service::importClassDefinitionFromJson($class, $json);
     }
 
 }

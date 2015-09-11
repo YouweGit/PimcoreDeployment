@@ -24,6 +24,7 @@ class Definition {
 
         $list = new \Object_Class_List();
         foreach ($list->load() as $class) {
+            // check if class needs to be skipped ($classes)
             $json = $this->generateClassDefinitionJson($class);
             $filename = $this->path . 'class_' . $class->getName() . '.json';
             echo "Exporting: " . str_replace(PIMCORE_WEBSITE_PATH, '', $filename) . " (" . strlen($json) . " bytes)\n";
@@ -55,10 +56,13 @@ class Definition {
                     WHERE TABLE_TYPE = 'VIEW' AND TABLE_SCHEMA = " . $this->db->quote($this->db->getConfig()['dbname']));
 
         foreach ($views as $view) {
+            // check if class needs to be skipped ($classes)
+            echo "Dropping view: " . $view['view'] . "\n";
             $this->db->query('DROP VIEW IF EXISTS ' . $this->db->quoteIdentifier($view['view']))->execute();
         }
 
         foreach (glob($this->path . "*.json") as $filename) {
+            // check if class needs to be skipped ($classes)
             echo "Importing: " . str_replace(PIMCORE_WEBSITE_PATH, '', $filename) . " (" . filesize($filename) . " bytes)\n";
             $this->save($filename);
         }

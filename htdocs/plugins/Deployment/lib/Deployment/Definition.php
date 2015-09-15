@@ -25,7 +25,7 @@ class Definition {
         $list = new \Object_Class_List();
         foreach ($list->load() as $class) {
             // check if class needs to be skipped ($classes)
-            if($classes && !in_array($class, $classes)) continue;
+            if($classes && !in_array($class->getName(), $classes)) continue;
 
             $json = $this->generateClassDefinitionJson($class);
             $filename = $this->path . 'class_' . $class->getName() . '.json';
@@ -65,7 +65,10 @@ class Definition {
 
         foreach (glob($this->path . "*.json") as $filename) {
             // check if class needs to be skipped ($classes)
-//            if($classes && !in_array($class, $classes)) continue;
+            $class = substr($filename, strpos($filename, 'class_'));
+            $class = str_replace('class_', '', $class);
+            $class = str_replace('.json', '', $class);
+            if($classes && !in_array($class, $classes)) continue;
 
             echo "Importing: " . str_replace(PIMCORE_WEBSITE_PATH, '', $filename) . " (" . filesize($filename) . " bytes)\n";
             $this->save($filename);

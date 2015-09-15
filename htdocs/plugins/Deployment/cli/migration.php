@@ -44,7 +44,7 @@ try {
 //echo "Action:  " . $opts->action . "\n";
 //echo "Classes: " . var_export($opts->classes,1) . "\n";
 
-$classes = ( $opts->classes !== true ? explode(',', $opts->classes) : false );
+$classes = ( ($opts->classes !== true && $opts->classes !== NULL) ? explode(',', $opts->classes) : false );
 
 //echo "Classes: " . var_export($classes,1) . "\n";
 

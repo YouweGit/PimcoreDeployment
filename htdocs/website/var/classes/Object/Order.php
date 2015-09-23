@@ -1,6 +1,6 @@
 <?php 
 
-/** Generated at 2015-09-15T15:54:29+02:00 */
+/** Generated at 2015-09-23T12:34:10+02:00 */
 
 /**
 * Inheritance: no

@@ -50,18 +50,34 @@ class Definition {
     }
 
     /**
+     * Clear-classes
+     */
+    public function clearClasses($classes = false) {
+
+        echo "Clearing classes table\n";
+        $this->db->query('DELETE FROM classes');
+    }
+
+    /**
+     * Dropviews
+     */
+    public function dropViews($classes = false) {
+
+        $views = $this->db->fetchAll("SELECT CONCAT(TABLE_SCHEMA,'.',TABLE_NAME) AS view
+                    FROM information_schema.TABLES
+                    WHERE TABLE_TYPE = 'VIEW' AND TABLE_SCHEMA = " . $this->db->quote($this->db->getConfig()['dbname']));
+
+        foreach ($views as $view) {
+            // check if class needs to be skipped ($classes)
+            echo "Dropping view: " . $view['view'] . "\n";
+            $this->db->query('DROP VIEW IF EXISTS ' . $this->db->quoteIdentifier($view['view']))->execute();
+        }
+    }
+
+    /**
      * Imports classes from json files
      */
     public function import($classes = false) {
-//        $views = $this->db->fetchAll("SELECT CONCAT(TABLE_SCHEMA,'.',TABLE_NAME) AS view
-//                    FROM information_schema.TABLES
-//                    WHERE TABLE_TYPE = 'VIEW' AND TABLE_SCHEMA = " . $this->db->quote($this->db->getConfig()['dbname']));
-//
-//        foreach ($views as $view) {
-//            // check if class needs to be skipped ($classes)
-//            echo "Dropping view: " . $view['view'] . "\n";
-//            $this->db->query('DROP VIEW IF EXISTS ' . $this->db->quoteIdentifier($view['view']))->execute();
-//        }
 
         foreach (glob($this->path . "*.json") as $filename) {
             // check if class needs to be skipped ($classes)

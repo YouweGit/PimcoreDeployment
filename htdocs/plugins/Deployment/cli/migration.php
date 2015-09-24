@@ -13,7 +13,7 @@ $memory = memory_get_usage();
 //execute in admin mode
 define("PIMCORE_ADMIN", true);
 
-$actionen = ['import-definition', 'export-definition', 'drop-views'];
+$actionen = ['import-definition', 'export-definition', 'drop-views', 'clear-classes'];
 
 try {
     $opts = new Zend_Console_Getopt(array(
@@ -54,6 +54,9 @@ Pimcore_Model_Cache::disable();
 $def = new \Deployment\Definition();
 
 switch ($opts->action) {
+    case 'clear-classes':
+        $def->clearClasses($classes);
+        break;
     case 'drop-views':
         $def->dropViews($classes);
         break;

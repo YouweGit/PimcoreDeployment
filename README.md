@@ -58,7 +58,7 @@ Plugin can be installed through composer. Add json to your composer.json:
         "repositories": [
             {
                 "type": "git",
-                "url": "ssh://git@source.youwe.nl/pimb2b/deployment.git"
+                "url": "ssh://git@source.youwe.nl:7999/pimb2b/deployment.git"
             }
         ]
     }

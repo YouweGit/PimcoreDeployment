@@ -1,52 +1,68 @@
-PIMCORE MIGRATION EXTENSION DEVELOPMENT PROJECT
------------------------------------------------
+PIMCORE DEPLOYMENT EXTENSION
+----------------------------
 
-version: Pimcore 3.x
+Version: Pimcore 3.x
 
-Use this project to develop the Deployment plugin.
+Developed by: Youwe (Manea, Yasar, Roelf, Bas)
 
+Excerpt
+-------
 
-Local Setup
+* Always developing your pimcore projects locally, and deploying them to servers afterwards like a real pro?
+* Don't like having to manually save all the object classes on every server after deploying changed classes?
+* Like to work more efficiently and professionally with pimcore?
+
+... then this extension is for you!
+
+Description
 -----------
 
-Add to hosts file:
+The pimcore deployment extension as the following general functionalities:
 
-    127.0.0.1	migration-dev.pimcore.local
+* Provide a way to do migrations of the pimcore object classes data structure
 
-Add vhost to apache:
+Usage
+-----
 
-    <VirtualHost *:80>
-      ServerName migration-dev.pimcore.local
-      DocumentRoot "/data/projects/pimcore-migration-dev"
-      DirectoryIndex index.php
+After changing or adding a pimcore object class, use the following command line command to export the updated
+definitions:
 
-      PHP_VALUE    error_reporting  6143
-      PHP_FLAG     display_errors   On
-      PHP_FLAG     log_errors       On
+    ./htdocs/plugins/Deployment/cli/export-definition.sh
 
-      <Directory "/data/projects/pimcore-migration-dev">
-        Options FollowSymLinks
-        AllowOverride All
-    #    Allow from All
-        Require all granted
-      </Directory>
-    </VirtualHost>
+When the project has been set up on a new dev system, or the project has been deployed to a server. Use the following
+command to have pimcore update the object class related files and database structure:
 
-Create database:
+    ./htdocs/plugins/Deployment/cli/import-definition.sh
 
-change credentials in tools/scripts/config.sh
-    user: root
-    pass: root
-    db:   pimcore_migdev
+Troubleshooting
+---------------
 
-Fork the git and clone your fork to:
+Before importing the definitions, you might need to set the correct permissions, in order for this script to be able to
+write to the definition files. In case of local development, a low security solution like the following could be used:
 
-    /data/projects/pimcore-migration-dev
+    sudo chmod -R 777 .
 
-Put initial database structure/data in place:
+Installation
+------------
 
-    cd tools/scripts
-    cp dump-initial.sql dump.sql
-    ./reload-local.sh
+Plugin can be installed through composer. Add json to your composer.json:
+
+    {
+        "config": {
+            "document-root-path": "htdocs"
+        },
+        "require": {
+            "pimcore/installer-plugin": "^1.3",
+            "youwe/deployment": "0.1.0"
+        },
+        "repositories": [
+            {
+                "type": "git",
+                "url": "ssh://git@source.youwe.nl/pimb2b/deployment.git"
+            }
+        ]
+    }
+
+
 
 

@@ -42,3 +42,27 @@ write to the definition files. In case of local development, a low security solu
 
     sudo chmod -R 777 .
 
+Installation
+------------
+
+Plugin can be installed through composer. Add json to your composer.json:
+
+    {
+        "config": {
+            "document-root-path": "htdocs"
+        },
+        "require": {
+            "pimcore/installer-plugin": "^1.3",
+            "youwe/deployment": "0.1.0"
+        },
+        "repositories": [
+            {
+                "type": "git",
+                "url": "ssh://git@source.youwe.nl/pimb2b/deployment.git"
+            }
+        ]
+    }
+
+
+
+

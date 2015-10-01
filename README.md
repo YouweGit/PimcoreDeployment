@@ -33,6 +33,18 @@ When the project has been set up on a new dev system, or the project has been de
 command to have pimcore update the object class related files and database structure:
 
     ./htdocs/plugins/Deployment/cli/import-definition.sh
+    
+Drop all the views in the database. Typically done before a complete import-definition.
+    
+    ./htdocs/plugins/Deployment/cli/drop-views.sh
+
+Clear the classes table in the database. Can be used when the class ids in the exported definition
+mismatch the ones already in the database. Use with care.
+    
+    ./htdocs/plugins/Deployment/cli/clear-classes.sh
+
+
+
 
 Troubleshooting
 ---------------

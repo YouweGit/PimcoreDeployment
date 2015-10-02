@@ -65,7 +65,7 @@ Plugin can be installed through composer. Add json to your composer.json:
         },
         "require": {
             "pimcore/installer-plugin": "^1.3",
-            "youwe/deployment": "0.1.0"
+            "youwe/deployment": "^0.1.0"
         },
         "repositories": [
             {

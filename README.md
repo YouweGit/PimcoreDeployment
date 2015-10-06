@@ -5,6 +5,10 @@ Version: Pimcore 3.x
 
 Developed by: Youwe (Manea, Yasar, Roelf, Bas)
 
+Reference / latest developments: Roelf
+
+
+
 Excerpt
 -------
 
@@ -14,6 +18,8 @@ Excerpt
 
 ... then this extension is for you!
 
+
+
 Description
 -----------
 
@@ -21,28 +27,51 @@ The pimcore deployment extension as the following general functionalities:
 
 * Provide a way to do migrations of the pimcore object classes data structure
 
-Usage
------
+
+
+Usage and examples
+------------------
 
 After changing or adding a pimcore object class, use the following command line command to export the updated
 definitions:
 
+Export all pimcore classes:
+
     ./htdocs/plugins/Deployment/cli/export-definition.sh
+    
+Export some selected pimcore classes:
+    
+    ./htdocs/plugins/Deployment/cli/export-definition.sh -c product,persom
 
 When the project has been set up on a new dev system, or the project has been deployed to a server. Use the following
 command to have pimcore update the object class related files and database structure:
 
+Import all json definitions:
+
     ./htdocs/plugins/Deployment/cli/import-definition.sh
+
+Import some selected json definitions:
+
+    ./htdocs/plugins/Deployment/cli/import-definition.sh -c product,persom
     
-Drop all the views in the database. Typically done before a complete import-definition.
+Drop all the views (and tables that should be views!) in the database. Typically done before a complete import-definition.
+
+Drop all:
     
     ./htdocs/plugins/Deployment/cli/drop-views.sh
+    
+Drop selected (by name):
+    
+    ./htdocs/plugins/Deployment/cli/drop-views.sh -c product,persom
+    
+Drop selected (by id):
+    
+    ./htdocs/plugins/Deployment/cli/drop-views.sh -i 2,5,6
 
 Clear the classes table in the database. Can be used when the class ids in the exported definition
 mismatch the ones already in the database. Use with care.
     
     ./htdocs/plugins/Deployment/cli/clear-classes.sh
-
 
 
 
@@ -53,6 +82,8 @@ Before importing the definitions, you might need to set the correct permissions,
 write to the definition files. In case of local development, a low security solution like the following could be used:
 
     sudo chmod -R 777 .
+
+
 
 Installation
 ------------

@@ -61,16 +61,67 @@ class Definition {
     /**
      * Dropviews
      */
-    public function dropViews($classes = false) {
+    public function dropViews($classes = false, $class_ids = false) {
 
-        $views = $this->db->fetchAll("SELECT CONCAT(TABLE_SCHEMA,'.',TABLE_NAME) AS view
+        // grab mappings from json files, if $classes (names) given
+        if($classes) {
+            $classes = $this->_getJsonClassIds($classes);
+        } elseif($class_ids)
+        {
+            $classes = $class_ids;
+        }
+
+        $views = $this->db->fetchAll("SELECT
+                      CONCAT(TABLE_SCHEMA,'.',TABLE_NAME) AS fulltablename,
+                      TABLE_TYPE as ttype,
+                      TABLE_NAME as tablename
                     FROM information_schema.TABLES
-                    WHERE TABLE_TYPE = 'VIEW' AND TABLE_SCHEMA = " . $this->db->quote($this->db->getConfig()['dbname']));
+                    WHERE TABLE_SCHEMA = " . $this->db->quote($this->db->getConfig()['dbname']));
+
+//        ---- object_##
+//        ---- object_localized_##_XX_XX
+//        ---- object_localized_##_XX
 
         foreach ($views as $view) {
             // check if class needs to be skipped ($classes)
-            echo "Dropping view: " . $view['view'] . "\n";
-            $this->db->query('DROP VIEW IF EXISTS ' . $this->db->quoteIdentifier($view['view']))->execute();
+
+            $should_be_view = false;
+            $class_id = false;
+            if (preg_match('/^object_([0-9]+)$/', $view['tablename'], $matches)
+                    ||
+                preg_match('/^object_localized_([0-9]+)_[A-z]{2}$/', $view['tablename'], $matches)
+                    ||
+                preg_match('/^object_localized_([0-9]+)_[A-z]{2}_[A-z]{2}$/', $view['tablename'], $matches)
+            ) {
+                $should_be_view = true;
+                $class_id = $matches[1];
+            }
+
+            if($should_be_view && $class_id)
+            {
+                echo "Found: [" . $view['ttype'] . "] " . $view['tablename'] . ": ";
+
+                // if only specific classes are selected:
+                if($classes && !in_array($class_id, $classes)) {
+                    echo "skipping\n";
+                    continue;
+                }
+
+                if($view['ttype'] == 'VIEW') {
+                    echo "dropping view\n";
+                    $this->db->query('DROP VIEW IF EXISTS ' . $this->db->quoteIdentifier($view['fulltablename']))->execute();
+                }
+                elseif($view['ttype'] == 'BASE TABLE') {
+                    echo "dropping table\n";
+                    $this->db->query('DROP TABLE IF EXISTS ' . $this->db->quoteIdentifier($view['fulltablename']))->execute();
+                }
+            }
+            else
+            {
+                //echo "skipping";
+            }
+//            echo "\n";
+
         }
     }
 
@@ -116,5 +167,24 @@ class Definition {
 
         return \Object_Class_Service::importClassDefinitionFromJson($class, $json);
     }
+
+    /**
+     * @param array $classses Class-names
+     * @return array or false
+     */
+    private function _getJsonClassIds($classes) {
+        $class_ids = array();
+        foreach (glob($this->path . "*.json") as $filename) {
+            $classinfo = json_decode(file_get_contents($filename), true);
+            $class_id = $classinfo['id'];
+            $class_name = $classinfo['name'];
+            if(in_array($class_name, $classes))
+            {
+                $class_ids[$class_name] = $class_id;
+            }
+        }
+        return count($class_ids) > 0 ? $class_ids : false;
+    }
+
 
 }

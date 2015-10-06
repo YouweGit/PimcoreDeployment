@@ -61,13 +61,15 @@ class Definition {
     /**
      * Dropviews
      */
-    public function dropViews($classes = false) {
+    public function dropViews($classes = false, $class_ids = false) {
 
-        // TODO: grab mappings from json files
-
-//        $views = $this->db->fetchAll("SELECT CONCAT(TABLE_SCHEMA,'.',TABLE_NAME) AS view
-//                    FROM information_schema.TABLES
-//                    WHERE TABLE_TYPE = 'VIEW' AND TABLE_SCHEMA = " . $this->db->quote($this->db->getConfig()['dbname']));
+        // grab mappings from json files, if $classes (names) given
+        if($classes) {
+            $classes = $this->_getJsonClassIds($classes);
+        } elseif($class_ids)
+        {
+            $classes = $class_ids;
+        }
 
         $views = $this->db->fetchAll("SELECT
                       CONCAT(TABLE_SCHEMA,'.',TABLE_NAME) AS fulltablename,
@@ -75,22 +77,6 @@ class Definition {
                       TABLE_NAME as tablename
                     FROM information_schema.TABLES
                     WHERE TABLE_SCHEMA = " . $this->db->quote($this->db->getConfig()['dbname']));
-
-//        $views = $this->db->fetchAll("SELECT
-//                      CONCAT(TABLE_SCHEMA,'.',TABLE_NAME) AS fulltablename,
-//                      TABLE_TYPE as ttype,
-//                      TABLE_NAME as tablename
-//                    FROM information_schema.TABLES
-//                    WHERE
-//                      (
-//                       TABLE_NAME REGEXP " . $this->db->quote("^object_[0-9]+$") . "
-//                        OR
-//                       TABLE_NAME REGEXP " . $this->db->quote("^object_localized_[0-9]+_[A-z]{2}_[A-z]{2}$") . "
-//                        OR
-//                       TABLE_NAME REGEXP " . $this->db->quote("^object_localized_[0-9]+_[A-z]{2}$") . "
-//                      )
-//                      AND
-//                      TABLE_SCHEMA = " . $this->db->quote($this->db->getConfig()['dbname']));
 
 //        ---- object_##
 //        ---- object_localized_##_XX_XX
@@ -100,6 +86,7 @@ class Definition {
             // check if class needs to be skipped ($classes)
 
             $should_be_view = false;
+            $class_id = false;
             if (preg_match('/^object_([0-9]+)$/', $view['tablename'], $matches)
                     ||
                 preg_match('/^object_localized_([0-9]+)_[A-z]{2}$/', $view['tablename'], $matches)
@@ -110,17 +97,19 @@ class Definition {
                 $class_id = $matches[1];
             }
 
-            if($should_be_view)
+            if($should_be_view && $class_id)
             {
                 echo "Found: [" . $view['ttype'] . "] " . $view['tablename'] . ": ";
 
-                // TODO grab class name from ID and check :
-                // if($classes && !in_array($class, $classes)) continue;
+                // if only specific classes are selected:
+                if($classes && !in_array($class_id, $classes)) continue;
 
                 if($view['ttype'] == 'VIEW') {
+                    echo "dropping view\n";
                     $this->db->query('DROP VIEW IF EXISTS ' . $this->db->quoteIdentifier($view['fulltablename']))->execute();
                 }
                 elseif($view['ttype'] == 'BASE TABLE') {
+                    echo "dropping table\n";
                     $this->db->query('DROP TABLE IF EXISTS ' . $this->db->quoteIdentifier($view['fulltablename']))->execute();
                 }
             }
@@ -128,7 +117,7 @@ class Definition {
             {
                 //echo "skipping";
             }
-            echo "\n";
+//            echo "\n";
 
         }
     }
@@ -175,5 +164,24 @@ class Definition {
 
         return \Object_Class_Service::importClassDefinitionFromJson($class, $json);
     }
+
+    /**
+     * @param array $classses Class-names
+     * @return array or false
+     */
+    private function _getJsonClassIds($classes) {
+        $class_ids = array();
+        foreach (glob($this->path . "*.json") as $filename) {
+            $classinfo = json_decode(file_get_contents($filename), true);
+            $class_id = $classinfo['id'];
+            $class_name = $classinfo['name'];
+            if(in_array($class_name, $classes))
+            {
+                $class_ids[$class_name] = $class_id;
+            }
+        }
+        return count($class_ids) > 0 ? $class_ids : false;
+    }
+
 
 }

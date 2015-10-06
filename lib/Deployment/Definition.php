@@ -102,7 +102,10 @@ class Definition {
                 echo "Found: [" . $view['ttype'] . "] " . $view['tablename'] . ": ";
 
                 // if only specific classes are selected:
-                if($classes && !in_array($class_id, $classes)) continue;
+                if($classes && !in_array($class_id, $classes)) {
+                    echo "skipping\n";
+                    continue;
+                }
 
                 if($view['ttype'] == 'VIEW') {
                     echo "dropping view\n";

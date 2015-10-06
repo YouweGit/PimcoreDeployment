@@ -27,10 +27,19 @@ try {
     if (!isset($opts->action) || !in_array($opts->action, $actionen)) {
         throw new Exception(
             "\n" .
-            'Action parameter should be import-definition or export-definition.' . "\n" .
-            'Classes parameter should list the class names comma seperated.' . "\n" .
+            "USAGE INSTRUCTIONS" .
+            "\n" .
+            'Action parameter should be one of the following:' . "\n" .
+            'import-definition  : re-create pimcore classes from json definitions' . "\n" .
+            'export-definition  : re-create json definitions from pimcore classes'. "\n" .
+            'drop-views         : drop views or tables that should be views' . "\n" .
+            'clear-classes      : empty the classes table' . "\n" .
+            "\n" .
+            'Optional classes parameter may list the class names comma seperated.' . "\n" .
+            "\n" .
             'Example:' . "\n" .
             'php migration.php -a export-definition -c product,person' . "\n" .
+            "\n" .
             'Note: for drop-views you can also use class ids:' . "\n" .
             'php migration.php -a drop-views -i 2,5,6' . "\n" .
             '');

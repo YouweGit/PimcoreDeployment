@@ -114,6 +114,6 @@ Plugin development
 To create a new version, check out the master branch somewhere and go:
 
     git tag 0.1.0
-    git push master --tags
+    git push origin --tags
 
 

@@ -107,6 +107,10 @@ Plugin can be installed through composer. Add json to your composer.json:
     }
 
 
+Also, add this to your .gitignore:
+
+    /htdocs/plugins/Deployment
+
 
 Plugin development
 ------------------

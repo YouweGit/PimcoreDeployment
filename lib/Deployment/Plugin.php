@@ -50,13 +50,12 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
 
     public static function getConfig()
     {
-        return new Zend_Config_Xml(PIMCORE_PLUGINS_PATH . '/YouweDeploy/config.xml', null, true);
-
+        return new Zend_Config_Xml(PIMCORE_PLUGINS_PATH . '/Deployment/config.xml', null, true);
     }
 
     public static function setConfig($config)
     {
         $writer = new Zend_Config_Writer_Xml();
-        $writer->write(PIMCORE_PLUGINS_PATH . '/YouweDeploy/config.xml', $config);
+        $writer->write(PIMCORE_PLUGINS_PATH . '/Deployment/config.xml', $config);
     }
 }

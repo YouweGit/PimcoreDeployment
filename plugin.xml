@@ -14,7 +14,7 @@
             <pluginBuildTimestamp>0</pluginBuildTimestamp>
 
             <!-- put in the URL for the plugin configuration eg. /plugin/Deployment/admin/index -->
-            <pluginIframeSrc></pluginIframeSrc>
+			<pluginIframeSrc>/plugin/Deployment/admin/setting</pluginIframeSrc>
 
             <!-- className of the plugin which extends Pimcore_API_Plugin_Abstract-->
 			<pluginClassName>\Deployment\Plugin</pluginClassName>

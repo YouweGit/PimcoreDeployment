@@ -13,7 +13,13 @@ $memory = memory_get_usage();
 //execute in admin mode
 define("PIMCORE_ADMIN", true);
 
-$actionen = ['import-definition', 'export-definition', 'drop-views', 'clear-classes'];
+$actionen = [
+    'import-definition',
+    'export-definition',
+    'import-staticdata',
+    'export-staticdata',
+    'drop-views',
+    'clear-classes'];
 
 try {
     $opts = new Zend_Console_Getopt(array(
@@ -32,6 +38,8 @@ try {
             'Action parameter should be one of the following:' . "\n" .
             'import-definition  : re-create pimcore classes from json definitions' . "\n" .
             'export-definition  : re-create json definitions from pimcore classes'. "\n" .
+            'import-staticdata  : re-create selected tables from static data dump' . "\n" .
+            'export-staticdata  : re-create static data dump from selected tables'. "\n" .
             'drop-views         : drop views or tables that should be views' . "\n" .
             'clear-classes      : empty the classes table' . "\n" .
             "\n" .
@@ -65,6 +73,7 @@ Version::disable();
 Pimcore_Model_Cache::disable();
 
 $def = new \Deployment\Definition();
+$mig = new \Deployment\Migration();
 
 switch ($opts->action) {
     case 'clear-classes':
@@ -79,6 +88,13 @@ switch ($opts->action) {
     case 'export-definition':
         $def->export($classes);
         break;
+    case 'import-staticdata':
+        $mig->migrate();
+        break;
+    case 'export-staticdata':
+        $mig->create();
+        break;
+
 }
 
 

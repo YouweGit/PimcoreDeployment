@@ -19,6 +19,10 @@ class Deployment_AdminController extends \Pimcore\Controller\Action\Admin {
         }
         $this->view->tables = $result;
         $config = \Deployment\Plugin::getConfig()->toArray();
+        if(!isset($config['tablesToCopy']['table']))
+        {
+            $config['tablesToCopy']['table'] = array();
+        }
         foreach ($config as $name => $conf) {
             $this->view->{$name} = $conf;
         }

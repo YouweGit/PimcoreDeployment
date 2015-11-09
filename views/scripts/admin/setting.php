@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Youwe Deploy Migration Settings</title>
+    <title>Deployment Settings</title>
     <style>
         .youwe-deploy-setting {
             font: normal 11px/13px arial, tahoma, helvetica, sans-serif;
@@ -29,17 +29,9 @@
 </head>
 <body>
 
-<form action="/plugin/YouweDeploy/admin/save-setting" method="POST" class="youwe-deploy-setting">
-    <?php //print_r($this->admin)?>
+<form action="/plugin/Deployment/admin/save-setting" method="POST" class="youwe-deploy-setting">
     <fieldset>
-        <legend>Admin user</legend>
-        <label>Username <input type="text" name="admin[username]" value="<?php print $this->admin['username']?>"></label>
-        <label>Password<input type="password" name="admin[password]" value="<?php print $this->admin['password']?>"></label>
-        <label>Email<input type="text" name="admin[email]" value="<?php print $this->admin['email']?>"></label>
-    </fieldset>
-
-    <fieldset>
-        <legend>Data to copy</legend>
+        <legend>Static table data to copy (overwriting everything)</legend>
             <?php foreach ($this->tables as $name => $table):?>
                 <?php if (preg_match('/object|migration_tables/', $name)) continue;?>
             <label>

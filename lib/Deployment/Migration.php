@@ -57,9 +57,11 @@ class Migration extends \Deployment\DAbstract
     function __construct()
     {
         parent::__construct();
-        $this->tablesToCopy = $this->config->staticDataTables->table->toArray();
-        $this->backupPath = PIMCORE_WEBSITE_PATH . $this->config->filePath;
-        $this->dumpFileName = $this->config->dumpFileName;
+        $this->tablesToCopy = $this->config->staticDataTables->table ? $this->config->staticDataTables->table->toArray() : array();
+
+        $this->backupPath = PIMCORE_WEBSITE_PATH . $this->backupPath;
+//        $this->backupPath = PIMCORE_WEBSITE_PATH . $this->config->filePath;
+//        $this->dumpFileName = $this->config->dumpFileName;
         \Pimcore\File::mkdir($this->backupPath);
     }
 
@@ -82,8 +84,8 @@ class Migration extends \Deployment\DAbstract
     private function finish()
     {
         $zipFile = $this->backupPath . $this->dumpFileName;
-        $zip = new ZipArchive();
-        $zip->open($zipFile, ZIPARCHIVE::OVERWRITE);
+        $zip = new \ZipArchive();
+        $zip->open($zipFile, \ZIPARCHIVE::OVERWRITE);
         $zip->addFile($this->backupPath . $this->migrationSqlFile, $this->migrationSqlFile);
 //        $zip->addFile($this->backupPath . $this->viewsSqlFile, $this->viewsSqlFile);
 //        $zip->addFile($this->backupPath . $this->migrationCreatedDB, $this->migrationCreatedDB);
@@ -130,13 +132,16 @@ class Migration extends \Deployment\DAbstract
      */
     public function dumpTables()
     {
+
+        $cnf = new \Zend_Config_Xml(PIMCORE_CONFIGURATION_DIRECTORY . '/system.xml');
+
         // classes redirects staticroutes translations_admin translations_website
         $return_var = NULL;
         $output = NULL;
-        $u = Zend_Registry::get('systemConfig')->database->params->username;
-        $p = Zend_Registry::get('systemConfig')->database->params->password;
-        $db = Zend_Registry::get('systemConfig')->database->params->dbname;
-        $h = Zend_Registry::get('systemConfig')->database->params->host;
+        $u = $cnf->database->params->username;
+        $p = $cnf->database->params->password;
+        $db = $cnf->database->params->dbname;
+        $h = $cnf->database->params->host;
         $file = $this->backupPath . $this->migrationSqlFile;
         $mysqlVersion = $this->adapter->getServerVersion();
         $purged = '';
@@ -155,8 +160,18 @@ class Migration extends \Deployment\DAbstract
 //        $command .= "-u$u -p$p -h$h $db | sed -e '/DEFINER/d' | sed 's/CREATE TABLE/CREATE TABLE IF NOT EXISTS/g' |  sed 's/ AUTO_INCREMENT=[0-9]*\\b//' > $file";
 //        exec($command, $output, $return_var);
 
+        var_dump($this->tablesToCopy);
+
         $tables = implode(' ', $this->tablesToCopy);
-        $command = "mysqldump $purged --add-drop-table -u$u -p$p -h$h $db $tables | sed -e '/DEFINER/d' >> $file";
+        if(count($this->tablesToCopy) > 0) {
+            $command = "mysqldump $purged --add-drop-table -u$u -p$p -h$h $db $tables | sed -e '/DEFINER/d' > $file";
+        }
+        else {
+            $command = "touch $file";
+        }
+
+        var_dump($command);
+
         exec($command, $output, $return_var);
 
         // remove propel tables
@@ -261,12 +276,14 @@ class Migration extends \Deployment\DAbstract
      */
     public function migrate()
     {
-        $this->install();
+//        $this->install();
 
-        $u = Zend_Registry::get('systemConfig')->database->params->username;
-        $p = Zend_Registry::get('systemConfig')->database->params->password;
-        $db = Zend_Registry::get('systemConfig')->database->params->dbname;
-        $h = Zend_Registry::get('systemConfig')->database->params->host;
+        $cnf = new \Zend_Config_Xml(PIMCORE_CONFIGURATION_DIRECTORY . '/system.xml');
+
+        $u = $cnf->database->params->username;
+        $p = $cnf->database->params->password;
+        $db = $cnf->database->params->dbname;
+        $h = $cnf->database->params->host;
 
 //        $createdFrom = $this->getMigrationCreatedDatabaseConfig();
 //        if (!empty($createdFrom) && $createdFrom['host'] == $h && $createdFrom['dbname'] == $db && $createdFrom['username'] == $u && $createdFrom['password'] == $p) {

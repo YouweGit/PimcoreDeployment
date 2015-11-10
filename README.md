@@ -73,6 +73,21 @@ mismatch the ones already in the database. Use with care.
     
     ./htdocs/plugins/Deployment/cli/clear-classes.sh
 
+If some tables contain static data which is actually managed whilst developing, and are not supposed to be
+altered by the client on the server, you can use the static data exporter/importers:
+
+Configure which tables are static using the extras->extensions->deployment-configuration in pimcore. Run 
+this command on your dev station after altering the table data:
+
+    ./htdocs/plugins/Deployment/cli/export-staticdata.sh
+    
+Run this command (automatically) on the server after deployment. Warning: this will completely replace all
+data in the tables:
+    
+    ./htdocs/plugins/Deployment/cli/import-staticdata.sh
+    
+    
+
 
 
 Troubleshooting
@@ -107,9 +122,13 @@ Plugin can be installed through composer. Add json to your composer.json:
     }
 
 
+Activate/enable the plugin in pimcore's extras->extensions list.
+
 Also, add this to your .gitignore:
 
     /htdocs/plugins/Deployment
+    
+ 
 
 
 Plugin development

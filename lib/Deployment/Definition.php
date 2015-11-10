@@ -116,12 +116,6 @@ class Definition {
                     $this->db->query('DROP TABLE IF EXISTS ' . $this->db->quoteIdentifier($view['fulltablename']))->execute();
                 }
             }
-            else
-            {
-                //echo "skipping";
-            }
-//            echo "\n";
-
         }
     }
 

@@ -14,7 +14,6 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
 
         // using anonymous function
         \Pimcore::getEventManager()->attach("document.postAdd", function ($event) {
-            // do something
             $document = $event->getTarget();
         });
 
@@ -66,7 +65,6 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
         $customconfig_file = PIMCORE_CONFIGURATION_DIRECTORY . '/deployment.xml';
 
         $writer = new \Zend_Config_Writer_Xml();
-//        $writer->write(PIMCORE_PLUGINS_PATH . '/Deployment/config.xml', $config);
         $writer->write($customconfig_file, $config);
     }
 }

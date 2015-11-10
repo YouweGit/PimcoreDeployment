@@ -1,13 +1,12 @@
 <?xml version="1.0"?>
 <zend-config xmlns:zf="http://framework.zend.com/xml/zend-config-xml/1.0/">
   <staticDataTables>
-    <!--<table>classes</table>-->
+    <!--<table>redirects</table>-->
+    <!--<table>staticroutes</table>-->
+    <!--<table>users_permission_definitions</table>-->
     <!--<table>documents</table>-->
     <!--<table>documents_email</table>-->
     <!--<table>documents_page</table>-->
     <!--<table>documents_snippet</table>-->
-    <!--<table>redirects</table>-->
-    <!--<table>staticroutes</table>-->
-    <!--<table>users_permission_definitions</table>-->
   </staticDataTables>
 </zend-config>

@@ -34,30 +34,57 @@ class Deployment_Plugin_Install
      * @var User
      */
     protected $_user;
+    private $db;
+
+    function __construct() {
+        $this->db = \Pimcore\Resource::get();
+    }
 
     public function createClass($name)
     {
-        $conf = new Zend_Config_Xml(PIMCORE_PLUGINS_PATH . "/Deployment/install/class_$name.xml", null, true);
+        $filename = PIMCORE_PLUGINS_PATH . "/Deployment/install/class_$name.json";
 
-        if ($name == 'BlogEntry' && !class_exists('Tagfield_Plugin')) {
-            unset($conf->layoutDefinitions->childs->childs->{4});
-        }
+        $json = file_get_contents($filename);
+        $importData = \Zend_Json::decode($json);
+//        $id = $this->db->quote($importData['id']);
+        $name = $this->db->quote($importData['name']);
+        $userOwner = $this->db->quote($importData['userOwner']);
 
-        $class = \Pimcore\Model\Object\Classdefinition::create();
-        $class->setName($name);
-        $class->setUserOwner($this->_getUser()->getId());
-        $class->setLayoutDefinitions(
-            \Pimcore\Model\Object\Classdefinition\Service::generateLayoutTreeFromArray(
-                $conf->layoutDefinitions->toArray()
-            )
-        );
-        $class->setIcon($conf->icon);
-        $class->setAllowInherit($conf->allowInherit);
-        $class->setAllowVariants($conf->allowVariants);
-        $class->setParentClass($conf->parentClass);
-        $class->setPreviewUrl($conf->previewUrl);
-        $class->setPropertyVisibility($conf->propertyVisibility);
-        $class->save();
+//        $class = \Object_Class::getById($id);
+//        if (!$class) {
+        $this->db->query("INSERT INTO classes(name, userOwner) VALUES($name, $userOwner)");
+        $id = $this->db->lastInsertId();
+//        }
+//        else {
+//            $this->db->query("UPDATE classes SET name = $name, userOwner = $userOwner WHERE id=$id");
+//        }
+        $class = \Pimcore\Model\Object\ClassDefinition::getById($id);
+
+        \Pimcore\Model\Object\ClassDefinition\Service::importClassDefinitionFromJson($class, $json);
+
+
+
+//        $conf = new Zend_Config_Xml(PIMCORE_PLUGINS_PATH . "/Deployment/install/class_$name.xml", null, true);
+//
+//        if ($name == 'BlogEntry' && !class_exists('Tagfield_Plugin')) {
+//            unset($conf->layoutDefinitions->childs->childs->{4});
+//        }
+//
+//        $class = \Pimcore\Model\Object\Classdefinition::create();
+//        $class->setName($name);
+//        $class->setUserOwner($this->_getUser()->getId());
+//        $class->setLayoutDefinitions(
+//            \Pimcore\Model\Object\Classdefinition\Service::generateLayoutTreeFromArray(
+//                $conf->layoutDefinitions->toArray()
+//            )
+//        );
+//        $class->setIcon($conf->icon);
+//        $class->setAllowInherit($conf->allowInherit);
+//        $class->setAllowVariants($conf->allowVariants);
+//        $class->setParentClass($conf->parentClass);
+//        $class->setPreviewUrl($conf->previewUrl);
+//        $class->setPropertyVisibility($conf->propertyVisibility);
+//        $class->save();
 
         return $class;
     }
@@ -70,42 +97,44 @@ class Deployment_Plugin_Install
         }
     }
 
-    public function setClassmap()
-    {
-        $classmapXml = PIMCORE_CONFIGURATION_DIRECTORY . '/classmap.xml';
-
-        try {
-            $conf = new \Zend_Config_Xml($classmapXml);
-            $classmap = $conf->toArray();
-        } catch(Exception $e) {
-            $classmap = array();
-        }
-
-        $classmap['Object_BlogEntry'] = 'Blog_Entry';
-
-        $writer = new \Zend_Config_Writer_Xml(array(
-            'config' => new \Zend_Config($classmap),
-            'filename' => $classmapXml
-        ));
-        $writer->write();
-    }
-
-    public function unsetClassmap()
-    {
-        $classmapXml = PIMCORE_CONFIGURATION_DIRECTORY . '/classmap.xml';
-
-        try {
-            $conf = new \Zend_Config_Xml($classmapXml);
-            $classmap = $conf->toArray();
-            unset($classmap['Object_BlogEntry']);
-
-            $writer = new \Zend_Config_Writer_Xml(array(
-                'config' => new \Zend_Config($classmap),
-                'filename' => $classmapXml
-            ));
-            $writer->write();
-        } catch(Exception $e) {}
-    }
+//    public function setClassmap()
+//    {
+//        $classmapXml = PIMCORE_CONFIGURATION_DIRECTORY . '/classmap.xml';
+//
+//        try {
+//            $conf = new \Zend_Config_Xml($classmapXml);
+//            $classmap = $conf->toArray();
+//        } catch(Exception $e) {
+//            $classmap = array();
+//        }
+//
+//        $classmap['Object_BlogEntry'] = 'Blog_Entry';
+//        $classmap['Object_BlogCategory'] = 'Blog_Category';
+//
+//        $writer = new \Zend_Config_Writer_Xml(array(
+//            'config' => new \Zend_Config($classmap),
+//            'filename' => $classmapXml
+//        ));
+//        $writer->write();
+//    }
+//
+//    public function unsetClassmap()
+//    {
+//        $classmapXml = PIMCORE_CONFIGURATION_DIRECTORY . '/classmap.xml';
+//
+//        try {
+//            $conf = new \Zend_Config_Xml($classmapXml);
+//            $classmap = $conf->toArray();
+//            unset($classmap['Object_BlogEntry']);
+//            unset($classmap['Object_BlogCategory']);
+//
+//            $writer = new \Zend_Config_Writer_Xml(array(
+//                'config' => new \Zend_Config($classmap),
+//                'filename' => $classmapXml
+//            ));
+//            $writer->write();
+//        } catch(Exception $e) {}
+//    }
 
 //    public function createFolders()
 //    {

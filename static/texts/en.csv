@@ -1,4 +1,4 @@
-"blog_installed_successfully","Blog plugin installed successfully. Please don't forget to reload pimcore!"
-"blog_install_failed","Could not install Blog plugin. See log for more details."
-"blog_uninstalled_successfully","Successfully uninstalled Blog plugin. Please don't forget to reload pimcore!"
-"blog_uninstall_failed","Could not uninstall Blog plugin. See log for more details."
+"deployment_installed_successfully","Deployment plugin installed successfully. Please don't forget to reload pimcore!"
+"deployment_install_failed","Could not install Deployment plugin. See log for more details."
+"deployment_uninstalled_successfully","Successfully uninstalled Deployment plugin. Please don't forget to reload pimcore!"
+"deployment_uninstall_failed","Could not uninstall Deployment plugin. See log for more details."

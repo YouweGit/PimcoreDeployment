@@ -92,11 +92,12 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
             $install = new \Deployment_Plugin_Install();
 
             // create object classes
-            $blogCategory = $install->createClass('BlogCategory');
-            $blogEntry = $install->createClass('BlogEntry');
+//            $blogCategory = $install->createClass('BlogCategory');
+//            $blogEntry = $install->createClass('BlogEntry');
+            $install->createClass('DeploymentDataMigration');
 
             // classmap
-            $install->setClassmap();
+//            $install->setClassmap();
 
             // create root object folder with subfolders
 //            $blogFolder = $install->createFolders();
@@ -115,10 +116,10 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
 
         } catch(\Exception $e) {
             \logger::crit($e);
-            return self::getTranslate()->_('blog_install_failed');
+            return self::getTranslate()->_('deployment_install_failed');
         }
 
-        return self::getTranslate()->_('blog_installed_successfully');
+        return self::getTranslate()->_('deployment_installed_successfully');
     }
 
     /**
@@ -142,16 +143,17 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
 //            $install->removeFolders();
 
             // classmap
-            $install->unsetClassmap();
+//            $install->unsetClassmap();
 
             // remove classes
-            $install->removeClass('BlogEntry');
-            $install->removeClass('BlogCategory');
+//            $install->removeClass('BlogEntry');
+//            $install->removeClass('BlogCategory');
+            $install->removeClass('DeploymentDataMigration');
 
-            return self::getTranslate()->_('blog_uninstalled_successfully');
+            return self::getTranslate()->_('deployment_uninstalled_successfully');
         } catch (\Exception $e) {
             \Logger::crit($e);
-            return self::getTranslate()->_('blog_uninstall_failed');
+            return self::getTranslate()->_('deployment_uninstall_failed');
         }
     }
 
@@ -160,10 +162,12 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
      */
     public static function isInstalled()
     {
-        $entry = \Pimcore\Model\Object\Classdefinition::getByName('BlogEntry');
-        $category = \Pimcore\Model\Object\Classdefinition::getByName('BlogCategory');
+        $entry = \Pimcore\Model\Object\Classdefinition::getByName('DeploymentDataMigration');
+//        $entry = \Pimcore\Model\Object\Classdefinition::getByName('BlogEntry');
+//        $category = \Pimcore\Model\Object\Classdefinition::getByName('BlogCategory');
 
-        if ($entry && $category) {
+//        if ($entry && $category) {
+        if ($entry) {
             return true;
         }
 

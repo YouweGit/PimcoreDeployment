@@ -27,6 +27,10 @@ class Deployment_AdminController extends \Pimcore\Controller\Action\Admin {
             $this->view->{$name} = $conf;
         }
 
+        // =======================
+
+        $sql = "SELECT * FROM documents";
+        $this->view->docs = $db->fetchAssoc($sql);
     }
 
     public function saveSettingAction()

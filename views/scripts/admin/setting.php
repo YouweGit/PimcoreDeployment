@@ -87,19 +87,19 @@
                         <?php echo $doc['id'] . ' ' . $doc['path'] . '' . $doc['key']; ?>
                     </td>
                     <td class="radiodoc">
-                        <input type="radio" name="doc[<?php print $doc['id'] ?>]" value="default">
+                        <input type="radio" name="doc[<?php print $doc['id'] ?>]" value="default" <?php if($doc['migration_mode'] == 'default'): ?>checked="checked"<?php endif ?>>
                     </td>
                     <td class="radiodoc">
-                        <input type="radio" name="doc[<?php print $doc['id'] ?>]" value="inherit">
+                        <input type="radio" name="doc[<?php print $doc['id'] ?>]" value="inherit" <?php if($doc['migration_mode'] == 'inherit'): ?>checked="checked"<?php endif ?>>
                     </td>
                     <td class="radiodoc">
-                        <input type="radio" name="doc[<?php print $doc['id'] ?>]" value="softinsert">
+                        <input type="radio" name="doc[<?php print $doc['id'] ?>]" value="softinsert" <?php if($doc['migration_mode'] == 'softinsert'): ?>checked="checked"<?php endif ?>>
                     </td>
                     <td class="radiodoc">
-                        <input type="radio" name="doc[<?php print $doc['id'] ?>]" value="supplement">
+                        <input type="radio" name="doc[<?php print $doc['id'] ?>]" value="supplement" <?php if($doc['migration_mode'] == 'supplement'): ?>checked="checked"<?php endif ?>>
                     </td>
                     <td class="radiodoc">
-                        <input type="radio" name="doc[<?php print $doc['id'] ?>]" value="force">
+                        <input type="radio" name="doc[<?php print $doc['id'] ?>]" value="force" <?php if($doc['migration_mode'] == 'force'): ?>checked="checked"<?php endif ?>>
                     </td>
                 </tr>
                 <?php endforeach;?>

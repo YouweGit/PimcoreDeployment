@@ -25,6 +25,19 @@
             padding: 3px 5px;
             margin: 0 5px;
         }
+        th {
+            font-size: 10px;
+        }
+        td {
+            font-size: 12px;
+            text-align: center;
+        }
+        .docc {
+            text-align: left;
+        }
+        .radiodoc {
+            min-width: 70px;
+        }
     </style>
 </head>
 <body>
@@ -43,5 +56,58 @@
     </fieldset>
     <button type="submit" name="save" value="1">Save</button>
 </form>
+
+<form action="/plugin/Deployment/admin/save-keys" method="POST" class="youwe-deploy-setting">
+    <fieldset>
+        <legend>Documents to migrate</legend>
+            <table>
+                <tr>
+                    <th class="docc">
+                        Document
+                    </th>
+                    <th>
+                        Default
+                    </th>
+                    <th>
+                        Inherit
+                    </th>
+                    <th>
+                        Insert if not exists
+                    </th>
+                    <th>
+                        Supplement
+                    </th>
+                    <th>
+                        Force replace
+                    </th>
+                </tr>
+                <?php foreach ($this->docs as &$doc):?>
+                <tr>
+                    <td class="docc">
+                        <?php echo $doc['id'] . ' ' . $doc['path'] . '' . $doc['key']; ?>
+                    </td>
+                    <td class="radiodoc">
+                        <input type="radio" name="doc[<?php print $doc['id'] ?>]" value="default" <?php if($doc['migration_mode'] == 'default'): ?>checked="checked"<?php endif ?>>
+                    </td>
+                    <td class="radiodoc">
+                        <input type="radio" name="doc[<?php print $doc['id'] ?>]" value="inherit" <?php if($doc['migration_mode'] == 'inherit'): ?>checked="checked"<?php endif ?>>
+                    </td>
+                    <td class="radiodoc">
+                        <input type="radio" name="doc[<?php print $doc['id'] ?>]" value="softinsert" <?php if($doc['migration_mode'] == 'softinsert'): ?>checked="checked"<?php endif ?>>
+                    </td>
+                    <td class="radiodoc">
+                        <input type="radio" name="doc[<?php print $doc['id'] ?>]" value="supplement" <?php if($doc['migration_mode'] == 'supplement'): ?>checked="checked"<?php endif ?>>
+                    </td>
+                    <td class="radiodoc">
+                        <input type="radio" name="doc[<?php print $doc['id'] ?>]" value="force" <?php if($doc['migration_mode'] == 'force'): ?>checked="checked"<?php endif ?>>
+                    </td>
+                </tr>
+                <?php endforeach;?>
+            </table>
+    </fieldset>
+    <button type="submit" name="save" value="1">Save</button>
+</form>
+
+
 </body>
 </html>

@@ -73,11 +73,14 @@ Version::disable();
 Pimcore_Model_Cache::disable();
 
 $plugin = "Deployment";
-if (!Pimcore_ExtensionManager::isEnabled('plugin', $plugin)) {
-    Pimcore_ExtensionManager::enable('plugin', $plugin);
+if (!\Pimcore\ExtensionManager::isEnabled('plugin', $plugin)) {
+    echo "\nEnabling plugin on the fly.\n";
+    \Pimcore\ExtensionManager::enable('plugin', $plugin);
+    $command = 'php ' . implode(' ', $argv);
+    echo "\nRe-executing command: [ $command ] \n";
+    echo shell_exec($command);
+    die();
 }
-
-Pimcore::initAutoloader();
 
 $def = new \Deployment\Definition();
 $mig = new \Deployment\Migration();

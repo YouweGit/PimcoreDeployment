@@ -2,6 +2,8 @@
 
 namespace Deployment;
 
+use Pimcore\Model\Object\ClassDefinition;
+
 class Definition {
 
     public $path;
@@ -150,14 +152,14 @@ class Definition {
         $name = $this->db->quote($importData['name']);
         $userOwner = $this->db->quote($importData['userOwner']);
 
-        $class = \Object_Class::getById($id);
+        $class = ClassDefinition::getById($id);
         if (!$class) {
             $this->db->query("INSERT INTO classes(id,name, userOwner) VALUES($id, $name, $userOwner)");
         }
         else {
             $this->db->query("UPDATE classes SET name = $name, userOwner = $userOwner WHERE id=$id");
         }
-        $class = \Object_Class::getById($id);
+        $class = ClassDefinition::getById($id);
 
         return \Object_Class_Service::importClassDefinitionFromJson($class, $json);
     }

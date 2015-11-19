@@ -3,6 +3,7 @@
 namespace Deployment;
 
 use Pimcore\API\Plugin as PluginLib;
+use Pimcore\Model\Object\ClassDefinition;
 
 class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterface {
 
@@ -15,42 +16,7 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
 
         parent::init();
 
-        // register your events here
-
-        // using anonymous function
-//        \Pimcore::getEventManager()->attach("document.postAdd", function ($event) {
-//            $document = $event->getTarget();
-//        });
-
-        // using methods
-//        \Pimcore::getEventManager()->attach("document.postUpdate", array($this, "handleDocument"));
-
-        // for more information regarding events, please visit:
-        // http://www.pimcore.org/wiki/display/PIMCORE/Event+API+%28EventManager%29+since+2.1.1
-        // http://framework.zend.com/manual/1.12/de/zend.event-manager.event-manager.html
-        // http://www.pimcore.org/wiki/pages/viewpage.action?pageId=12124202
-
     }
-
-//    public function handleDocument ($event) {
-//        // do something
-//        $document = $event->getTarget();
-//    }
-
-//	public static function install (){
-//        // implement your own logic here
-//        return true;
-//	}
-//
-//	public static function uninstall (){
-//        // implement your own logic here
-//        return true;
-//	}
-//
-//	public static function isInstalled () {
-//        // implement your own logic here
-//        return true;
-//	}
 
     public static function getConfig()
     {
@@ -73,16 +39,6 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
         $writer->write($customconfig_file, $config);
     }
 
-
-
-
-
-
-
-
-
-
-
     /**
      * @return string $statusMessage
      */
@@ -90,30 +46,7 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
     {
         try {
             $install = new \Deployment_Plugin_Install();
-
-            // create object classes
-//            $blogCategory = $install->createClass('BlogCategory');
-//            $blogEntry = $install->createClass('BlogEntry');
             $install->createClass('DeploymentDataMigration');
-
-            // classmap
-//            $install->setClassmap();
-
-            // create root object folder with subfolders
-//            $blogFolder = $install->createFolders();
-
-            // create custom view for blog objects
-//            $install->createCustomView($blogFolder, array(
-//                $blogEntry->getId(),
-//                $blogCategory->getId(),
-//            ));
-
-            // create static routes
-//            $install->createStaticRoutes();
-
-            // create predefined document types
-//            $install->createDocTypes();
-
         } catch(\Exception $e) {
             \logger::crit($e);
             return self::getTranslate()->_('deployment_install_failed');
@@ -129,25 +62,6 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
     {
         try {
             $install = new \Deployment_Plugin_Install();
-
-            // remove predefined document types
-//            $install->removeDocTypes();
-
-            // remove static routes
-//            $install->removeStaticRoutes();
-
-            // remove custom view
-//            $install->removeCustomView();
-
-            // remove object folder with all childs
-//            $install->removeFolders();
-
-            // classmap
-//            $install->unsetClassmap();
-
-            // remove classes
-//            $install->removeClass('BlogEntry');
-//            $install->removeClass('BlogCategory');
             $install->removeClass('DeploymentDataMigration');
 
             return self::getTranslate()->_('deployment_uninstalled_successfully');
@@ -162,11 +76,7 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
      */
     public static function isInstalled()
     {
-        $entry = \Pimcore\Model\Object\Classdefinition::getByName('DeploymentDataMigration');
-//        $entry = \Pimcore\Model\Object\Classdefinition::getByName('BlogEntry');
-//        $category = \Pimcore\Model\Object\Classdefinition::getByName('BlogCategory');
-
-//        if ($entry && $category) {
+        $entry = Classdefinition::getByName('DeploymentDataMigration');
         if ($entry) {
             return true;
         }

@@ -1,4 +1,4 @@
-"deployment_installed_successfully","Deployment plugin installed successfully. Please don't forget to reload pimcore!"
+"deployment_installed_successfully","Deployment plugin installed successfully. Please don't forget to reload pimcore! DO NOT use install function on server. Use export-definition locally, and import-definition on the server to install the plugin!"
 "deployment_install_failed","Could not install Deployment plugin. See log for more details."
 "deployment_uninstalled_successfully","Successfully uninstalled Deployment plugin. Please don't forget to reload pimcore!"
 "deployment_uninstall_failed","Could not uninstall Deployment plugin. See log for more details."

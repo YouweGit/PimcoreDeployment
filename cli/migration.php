@@ -72,6 +72,16 @@ $classids = ( ($opts->classids !== true && $opts->classids !== NULL) ? explode('
 Version::disable();
 Pimcore_Model_Cache::disable();
 
+$plugin = "Deployment";
+if (!\Pimcore\ExtensionManager::isEnabled('plugin', $plugin)) {
+    echo "\nEnabling plugin on the fly.\n";
+    \Pimcore\ExtensionManager::enable('plugin', $plugin);
+    $command = 'php ' . implode(' ', $argv);
+    echo "\nRe-executing command: [ $command ] \n";
+    echo shell_exec($command);
+    die();
+}
+
 $def = new \Deployment\Definition();
 $mig = new \Deployment\Migration();
 

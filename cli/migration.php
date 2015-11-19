@@ -72,6 +72,13 @@ $classids = ( ($opts->classids !== true && $opts->classids !== NULL) ? explode('
 Version::disable();
 Pimcore_Model_Cache::disable();
 
+$plugin = "Deployment";
+if (!Pimcore_ExtensionManager::isEnabled('plugin', $plugin)) {
+    Pimcore_ExtensionManager::enable('plugin', $plugin);
+}
+
+Pimcore::initAutoloader();
+
 $def = new \Deployment\Definition();
 $mig = new \Deployment\Migration();
 

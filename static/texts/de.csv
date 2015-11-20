@@ -2,3 +2,4 @@
 "deployment_install_failed","Das Deployment Plugin konnte nicht installiert werden. Für weitere Details bitte ins log schauen."
 "deployment_uninstalled_successfully","Das Deployment Plugin wurde erfolgreich deinstalliert. Bitte Pimcore neu laden!"
 "deployment_uninstall_failed","Das Deployment Plugin konnte nicht deinstalliert werden. Für weitere Details bitte ins log schauen."
+"deployment_install_definition_import","Bitte installieren Sie das Plugin mit dem Befehl import-Definition."

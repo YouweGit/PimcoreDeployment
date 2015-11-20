@@ -2,3 +2,4 @@
 "deployment_install_failed","Could not install Deployment plugin. See log for more details."
 "deployment_uninstalled_successfully","Successfully uninstalled Deployment plugin. Please don't forget to reload pimcore!"
 "deployment_uninstall_failed","Could not uninstall Deployment plugin. See log for more details."
+"deployment_install_definition_import","Please install the plugin by running the import-definition command."

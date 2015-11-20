@@ -44,6 +44,14 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
      */
     public static function install()
     {
+        // check if the plugins table structure is already exported by the plugin itself
+        $def = new \Deployment\Definition();
+        $plugin_data_table_file_exported = $def->path . 'class_DeploymentDataMigration.json';
+        if(file_exists($plugin_data_table_file_exported))
+        {
+            return self::getTranslate()->_('deployment_install_definition_import');
+        }
+
         try {
             $install = new \Deployment_Plugin_Install();
             $install->createClass('DeploymentDataMigration');

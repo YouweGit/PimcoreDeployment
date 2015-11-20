@@ -26,6 +26,8 @@ Description
 The pimcore deployment extension as the following general functionalities:
 
 * Provide a way to do migrations of the pimcore object classes data structure
+* Provide a way to keep tables with static data synced on the server
+* Provide a way to migrate static document data to the server (work in progress)
 
 
 
@@ -86,7 +88,32 @@ data in the tables:
     
     ./htdocs/plugins/Deployment/cli/import-staticdata.sh
     
+
+Deployment to server
+--------------------
+
+When deploying your project to a server, the deployment script would typically execute these commands after
+deploying the updated code:
+
+    ./htdocs/plugins/Deployment/cli/import-definition.sh
+    ./htdocs/plugins/Deployment/cli/import-staticdata.sh
+    (another command will be added here as soon as the document-migration is done)
+
     
+    
+Initial (first-time) deployment to server
+-----------------------------------------
+
+Be careful not to install this plugin on your server, because it would generate a pimcore table for itself using
+an improvised ID. Rather follow this route:
+
+* On your development machine, enable the plugin and install the plugin (from the Extras -> Extensions menu).
+* This will generate a pimcore data table called DeploymentDataMigration
+* After this is done, use the export-definition command to export all pimcore data table definitions to json files.
+* Now you will run the import-definition command on the server and all the data tables will be generated from json files.
+* The plugin will enable itself.
+* By creating the data tables from the json files, the DeploymentDataMigration datatable is also created.
+* This means the plugin is installed.
 
 
 

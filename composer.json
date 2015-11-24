@@ -7,5 +7,8 @@
   },
   "extra": {
     "class": "Pimcore\\Composer\\PluginInstaller"
+  },
+  "require": {
+    "pimcore/installer-plugin": "^1.3"
   }
 }

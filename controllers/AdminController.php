@@ -19,9 +19,9 @@ class Deployment_AdminController extends \Pimcore\Controller\Action\Admin {
         }
         $this->view->tables = $result;
         $config = \Deployment\Plugin::getConfig()->toArray();
-        if(!isset($config['tablesToCopy']['table']))
+        if(!isset($config['staticDataTables']['table']))
         {
-            $config['tablesToCopy']['table'] = array();
+            $config['staticDataTables']['table'] = array();
         }
         foreach ($config as $name => $conf) {
             $this->view->{$name} = $conf;
@@ -41,9 +41,9 @@ class Deployment_AdminController extends \Pimcore\Controller\Action\Admin {
 
     public function saveSettingAction()
     {
-        $tablesToCopy = $this->getParam('tablesToCopy');
+        $staticDataTables = $this->getParam('staticDataTables');
         $config = \Deployment\Plugin::getConfig();
-        $config->tablesToCopy = $tablesToCopy;
+        $config->staticDataTables = $staticDataTables;
         \Deployment\Plugin::setConfig($config);
         $this->forward("setting");
     }
@@ -58,15 +58,17 @@ class Deployment_AdminController extends \Pimcore\Controller\Action\Admin {
         //          1 => string 'default' (length=7)
         //          7 => string 'default' (length=7)
         //          8 => string 'default' (length=7)
-        die();
+//        die();
         // @todo: fix the strange no-response form submit
+
+//        die();
 
         foreach($docs as $docid => &$mode)
         {
             \Deployment\DeploymentDataMigrationManager::setModeByCnameAndId('documents', $docid, null, null, $mode);
         }
 
-        die();
+//        die();
 
         $this->forward("setting");
     }

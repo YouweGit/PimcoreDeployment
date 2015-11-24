@@ -30,7 +30,7 @@ class DeploymentDataMigrationManager {
     public static function setModeByCnameAndId($cname, $cid, $cid2 = null, $cid3 = null, $mode)
     {
         $deployment_data_object = self::retrieveObjectByCnameAndId($cname, $cid, $cid2, $cid3);
-        if(!$deployment_data_object && $mode != 'default') {
+        if(!$deployment_data_object) {
 
             // Create a new object (all related object migration keys will be created by the CLI)
 
@@ -39,11 +39,13 @@ class DeploymentDataMigrationManager {
             $deployment_data_object->setMode($mode);
             $deployment_data_object->setCId($cid);
             $deployment_data_object->setMigrationKey(self::generateUniqueMigrationKey());
-            $deployment_data_object->setPath('/Deployment/DataMigration');
+            $deployment_data_object->setParentId();
+//            $deployment_data_object->setPath('/Deployment/DataMigration');
             if($cid2) $deployment_data_object->setCId2($cid2);
             if($cid3) $deployment_data_object->setCId2($cid3);
             $deployment_data_object->setKey($cname . '-' . $cid . '-' . $cid2 . '-' . $cid3);
             $deployment_data_object->save();
+//            die();
         }
     }
 

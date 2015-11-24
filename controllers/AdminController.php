@@ -53,22 +53,17 @@ class Deployment_AdminController extends \Pimcore\Controller\Action\Admin {
         $docs = $this->getParam('doc');
 
         // Save the settings to the DeploymentDataMigration table + generate unique keys
-        var_dump($docs);
+//        var_dump($docs);
         // array (size=3)
         //          1 => string 'default' (length=7)
         //          7 => string 'default' (length=7)
         //          8 => string 'default' (length=7)
-//        die();
-        // @todo: fix the strange no-response form submit
 
-//        die();
 
         foreach($docs as $docid => &$mode)
         {
             \Deployment\DeploymentDataMigrationManager::setModeByCnameAndId('documents', $docid, null, null, $mode);
         }
-
-//        die();
 
         $this->forward("setting");
     }

@@ -23,7 +23,7 @@ class Migration extends \Deployment\DAbstract
      *
      * DEFAULT NOTHING - because data could get overwritten
      */
-    private $tablesToCopy = array(
+    private $staticDataTables = array(
     );
 
     /**
@@ -35,7 +35,10 @@ class Migration extends \Deployment\DAbstract
     function __construct()
     {
         parent::__construct();
-        $this->tablesToCopy = $this->config->staticDataTables->table ? $this->config->staticDataTables->table->toArray() : array();
+//        var_dump($this->config);
+//        var_dump($this->config->staticDataTables->table);
+//        die();
+        $this->staticDataTables = $this->config->staticDataTables->table ? is_string($this->config->staticDataTables->table) ? array($this->config->staticDataTables->table) : $this->config->staticDataTables->table->toArray() : array();
 
         $this->backupPath = PIMCORE_WEBSITE_PATH . $this->backupPath;
         \Pimcore\File::mkdir($this->backupPath);
@@ -85,10 +88,10 @@ class Migration extends \Deployment\DAbstract
             $purged = '--set-gtid-purged=OFF';
         }
 
-        var_dump($this->tablesToCopy);
+        var_dump($this->staticDataTables);
 
-        $tables = implode(' ', $this->tablesToCopy);
-        if(count($this->tablesToCopy) > 0) {
+        $tables = implode(' ', $this->staticDataTables);
+        if(count($this->staticDataTables) > 0) {
             $command = "mysqldump $purged --add-drop-table -u$u -p$p -h$h $db $tables | sed -e '/DEFINER/d' > $file";
         }
         else {

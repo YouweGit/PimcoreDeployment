@@ -58,15 +58,17 @@ class Deployment_AdminController extends \Pimcore\Controller\Action\Admin {
         //          1 => string 'default' (length=7)
         //          7 => string 'default' (length=7)
         //          8 => string 'default' (length=7)
-        die();
+//        die();
         // @todo: fix the strange no-response form submit
+
+//        die();
 
         foreach($docs as $docid => &$mode)
         {
             \Deployment\DeploymentDataMigrationManager::setModeByCnameAndId('documents', $docid, null, null, $mode);
         }
 
-        die();
+//        die();
 
         $this->forward("setting");
     }

@@ -138,12 +138,17 @@ Plugin can be installed through composer. Add json to your composer.json:
         },
         "require": {
             "pimcore/installer-plugin": "^1.3",
+            "youwe/pathmanager": "^0.1.0",
             "youwe/deployment": "^0.1.0"
         },
         "repositories": [
             {
                 "type": "git",
                 "url": "ssh://git@source.youwe.nl:7999/pimb2b/deployment.git"
+            },
+            {
+                "type": "git",
+                "url": "ssh://git@source.youwe.nl:7999/pimb2b/pathmanager.git"
             }
         ]
     }

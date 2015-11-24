@@ -48,8 +48,8 @@
             <?php foreach ($this->tables as $name => $table):?>
                 <?php if (preg_match('/object|migration_tables/', $name)) continue;?>
             <label>
-                <?php $checked = (is_array($this->tablesToCopy['table']) && in_array($name, $this->tablesToCopy['table'])) ? 'checked' : ($name == $this->tablesToCopy['table'] ? 'checked' : '');?>
-                <input type="checkbox" name="tablesToCopy[table][]" value="<?php print $name ?>" value="1" <?php print $checked;  ?>>
+                <?php $checked = (is_array(@$this->staticDataTables['table']) && in_array($name, $this->staticDataTables['table'])) ? 'checked' : ($name == @$this->staticDataTables['table'] ? 'checked' : '');?>
+                <input type="checkbox" name="staticDataTables[table][]" value="<?php print $name ?>" value="1" <?php print $checked;  ?>>
                 <?php print $name ?>
             </label>
             <?php endforeach;?>

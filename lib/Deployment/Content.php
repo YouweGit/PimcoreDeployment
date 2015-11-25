@@ -2,7 +2,7 @@
 
 namespace Deployment;
 
-class Migration extends \Deployment\DAbstract
+class Content extends \Deployment\DAbstract
 {
     /**
      * @var string
@@ -25,6 +25,7 @@ class Migration extends \Deployment\DAbstract
         parent::__construct();
         $this->db = \Pimcore\Resource::get();
         $this->backupPath = PIMCORE_WEBSITE_PATH . $this->backupPath;
+        $this->backupTmpPath = PIMCORE_WEBSITE_PATH . $this->backupTmpPath;
         \Pimcore\File::mkdir($this->backupPath);
         \Pimcore\File::mkdir($this->backupTmpPath);
     }
@@ -52,7 +53,7 @@ class Migration extends \Deployment\DAbstract
         $zipFile = $this->backupPath . $this->dumpFileName;
         $zip = new \ZipArchive();
         $zip->open($zipFile, \ZIPARCHIVE::OVERWRITE);
-        $zip->addGlob($this->backupTmpPath . '*');
+        $zip->addGlob($this->backupTmpPath . '*', 0, array('add_path' => './', 'remove_all_path' => true));
         $zip->close();
 
         $this->clearTmpDir();

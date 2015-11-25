@@ -34,8 +34,13 @@ class Deployment_AdminController extends \Pimcore\Controller\Action\Admin {
         foreach($this->view->docs as &$doc)
         {
             // look up current migration setting by doc id
-            $mode = \Deployment\DeploymentDataMigrationManager::getModeByCnameAndId('documents', $doc['id']);
-            $doc['migration_mode'] = $mode;
+            $doc['migration_mode'] = 'default';
+            $doc['migration_key'] = '';
+            $migration_object = \Deployment\DeploymentDataMigrationManager::retrieveObjectByCnameAndId('documents', $doc['id']);
+            if($migration_object) {
+                $doc['migration_mode'] = $migration_object->getMode();
+                $doc['migration_key'] = $migration_object->getMigrationKey();
+            }
         }
     }
 

@@ -84,6 +84,7 @@ if (!\Pimcore\ExtensionManager::isEnabled('plugin', $plugin)) {
 
 $def = new \Deployment\Definition();
 $mig = new \Deployment\Migration();
+$con = new \Deployment\Content();
 
 switch ($opts->action) {
     case 'clear-classes':
@@ -103,6 +104,12 @@ switch ($opts->action) {
         break;
     case 'export-staticdata':
         $mig->create();
+        break;
+    case 'import-content':
+        $mig->importContent();
+        break;
+    case 'export-content':
+        $mig->exportContent();
         break;
 
 }

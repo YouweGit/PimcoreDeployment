@@ -80,6 +80,9 @@
                     <th>
                         Force replace
                     </th>
+                    <th>
+                        Migration key
+                    </th>
                 </tr>
                 <?php foreach ($this->docs as &$doc):?>
                 <tr>
@@ -100,6 +103,9 @@
                     </td>
                     <td class="radiodoc">
                         <input type="radio" name="doc[<?php print $doc['id'] ?>]" value="force" <?php if($doc['migration_mode'] == 'force'): ?>checked="checked"<?php endif ?>>
+                    </td>
+                    <td class="radiodoc">
+                        <?php echo $doc['migration_key']; ?>
                     </td>
                 </tr>
                 <?php endforeach;?>

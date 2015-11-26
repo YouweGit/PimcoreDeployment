@@ -10,7 +10,7 @@ class DeploymentDataMigrationManager {
 //    private $db;
 
     function __construct() {
-//        $this->db = \Pimcore\Resource::get();
+        $this->db = \Pimcore\Resource::get();
 //        $this->path = PIMCORE_WEBSITE_PATH . '/var/deployment/migration/classes/';
     }
 
@@ -30,6 +30,34 @@ class DeploymentDataMigrationManager {
     public static function setModeByCnameAndId($cname, $cid, $cid2 = null, $cid3 = null, $mode)
     {
         $deployment_data_object = self::retrieveObjectByCnameAndId($cname, $cid, $cid2, $cid3);
+
+        if(!$deployment_data_object) {
+
+            // Create a new object (all related object migration keys will be created by the CLI)
+            $parent_id_of_new_object = \PathManager_PathManager::getOrCreateSubfolder('/deployment', 'datamigration');
+
+            $deployment_data_object = new DeploymentDataMigration();
+            $deployment_data_object->setCName($cname);
+            $deployment_data_object->setMode($mode);
+            $deployment_data_object->setCId($cid);
+            $deployment_data_object->setTimestamp(new \Pimcore\Date());
+            $deployment_data_object->setMigrationKey(self::generateUniqueMigrationKey());
+            $deployment_data_object->setParentId($parent_id_of_new_object);
+            if($cid2) $deployment_data_object->setCId2($cid2);
+            if($cid3) $deployment_data_object->setCId3($cid3);
+            $deployment_data_object->setKey(self::makeKeyValid($cname . '-' . $cid . '-' . $cid2 . '-' . $cid3));
+            $deployment_data_object->save();
+        } else {
+            $deployment_data_object->setMode($mode);
+            $deployment_data_object->setTimestamp(new \Pimcore\Date());
+            $deployment_data_object->save();
+        }
+    }
+
+    public static function createKeyByCnameAndId($cname, $cid, $cid2 = null, $cid3 = null)
+    {
+        $mode = 'default';
+        $deployment_data_object = self::retrieveObjectByCnameAndId($cname, $cid, $cid2, $cid3);
 //        var_dump($deployment_data_object);
 //        die();
 
@@ -45,17 +73,20 @@ class DeploymentDataMigrationManager {
             $deployment_data_object->setTimestamp(new \Pimcore\Date());
             $deployment_data_object->setMigrationKey(self::generateUniqueMigrationKey());
             $deployment_data_object->setParentId($parent_id_of_new_object);
-
             if($cid2) $deployment_data_object->setCId2($cid2);
-            if($cid3) $deployment_data_object->setCId2($cid3);
-            $deployment_data_object->setKey($cname . '-' . $cid . '-' . $cid2 . '-' . $cid3);
+            if($cid3) $deployment_data_object->setCId3($cid3);
+            $deployment_data_object->setKey(self::makeKeyValid($cname . '-' . $cid . '-' . $cid2 . '-' . $cid3));
             $deployment_data_object->save();
+        } else {
+            // dont touch if it already exists
         }
+        return $deployment_data_object;
     }
 
     public static function retrieveObjectByCnameAndId($cname, $cid, $cid2 = null, $cid3 = null)
     {
         $list = new DeploymentDataMigration\Listing();
+        $list->setUnpublished(true);
         $list->addConditionParam('CName = ?', $cname);
         $list->addConditionParam('CId = ?', $cid);
         if ($cid2) $list->addConditionParam('CId2 = ?', $cid2);
@@ -79,6 +110,22 @@ class DeploymentDataMigrationManager {
         $deployment_data_object = DeploymentDataMigration::getByMigrationKey($uid);
         if(!$deployment_data_object->count()) return true;
         return false;
+    }
+
+    public static function makeKeyValid($keybase)
+    {
+        $k = \Pimcore\File::getValidFilename($keybase);
+        return $k;
+    }
+
+    public function getDataByDDM($mig)
+    {
+        if($mig->getCName() == 'documents')
+        {
+            $sql = "SELECT * FROM documents WHERE id = " . $mig->getCid();
+            $data = $this->db->fetchRow($sql);
+            return $data;
+        }
     }
 
 

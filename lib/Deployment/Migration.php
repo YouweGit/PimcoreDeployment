@@ -35,9 +35,6 @@ class Migration extends \Deployment\DAbstract
     function __construct()
     {
         parent::__construct();
-//        var_dump($this->config);
-//        var_dump($this->config->staticDataTables->table);
-//        die();
         $this->staticDataTables = $this->config->staticDataTables->table ? is_string($this->config->staticDataTables->table) ? array($this->config->staticDataTables->table) : $this->config->staticDataTables->table->toArray() : array();
 
         $this->backupPath = PIMCORE_WEBSITE_PATH . $this->backupPath;

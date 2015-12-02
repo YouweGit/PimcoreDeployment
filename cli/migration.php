@@ -18,6 +18,8 @@ $actionen = [
     'export-definition',
     'import-staticdata',
     'export-staticdata',
+    'import-content',
+    'export-content',
     'drop-views',
     'clear-classes'];
 
@@ -40,6 +42,8 @@ try {
             'export-definition  : re-create json definitions from pimcore classes'. "\n" .
             'import-staticdata  : re-create selected tables from static data dump' . "\n" .
             'export-staticdata  : re-create static data dump from selected tables'. "\n" .
+            'import-content     : update content on server' . "\n" .
+            'export-content     : export selected content on local/dev'. "\n" .
             'drop-views         : drop views or tables that should be views' . "\n" .
             'clear-classes      : empty the classes table' . "\n" .
             "\n" .
@@ -84,6 +88,7 @@ if (!\Pimcore\ExtensionManager::isEnabled('plugin', $plugin)) {
 
 $def = new \Deployment\Definition();
 $mig = new \Deployment\Migration();
+$con = new \Deployment\Content();
 
 switch ($opts->action) {
     case 'clear-classes':
@@ -103,6 +108,12 @@ switch ($opts->action) {
         break;
     case 'export-staticdata':
         $mig->create();
+        break;
+    case 'import-content':
+        $con->importContent();
+        break;
+    case 'export-content':
+        $con->exportContent();
         break;
 
 }

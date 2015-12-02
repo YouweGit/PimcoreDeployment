@@ -14,6 +14,19 @@ class DeploymentDataMigrationManager {
 //        $this->path = PIMCORE_WEBSITE_PATH . '/var/deployment/migration/classes/';
     }
 
+    public static function DDMtoArray($mig)
+    {
+        return array(
+            'CName' => $mig->getCName(),
+            'CId' => $mig->getCId(),
+            'CId2' => $mig->getCId2(),
+            'CId3' => $mig->getCId3(),
+            'Timestamp' => $mig->getTimestamp()->getTimestamp(),
+            'MigrationKey' => $mig->getMigrationKey(),
+            'Mode' => $mig->getMode()
+        );
+    }
+
     public static function getModeByCnameAndId($cname, $cid, $cid2 = null, $cid3 = null) {
         $mode = 'default'; // when nothing is found
 
@@ -120,12 +133,38 @@ class DeploymentDataMigrationManager {
 
     public function getDataByDDM($mig)
     {
+        $data = false;
+        $sql = false;
+
         if($mig->getCName() == 'documents')
         {
             $sql = "SELECT * FROM documents WHERE id = " . $mig->getCid();
-            $data = $this->db->fetchRow($sql);
-            return $data;
         }
+        elseif($mig->getCName() == 'documents_link')
+        {
+            $sql = "SELECT * FROM documents_link WHERE id = " . $mig->getCid();
+        }
+        elseif($mig->getCName() == 'documents_page')
+        {
+            $sql = "SELECT * FROM documents_page WHERE id = " . $mig->getCid();
+        }
+        elseif($mig->getCName() == 'documents_elements')
+        {
+            $sql = "SELECT * FROM documents_elements WHERE documentId = " . $mig->getCid() .
+                    " AND name = '" . $mig->getCid2() . "'";
+        }
+        elseif($mig->getCName() == 'properties')
+        {
+            $sql = "SELECT * FROM properties WHERE cid = " . $mig->getCid() .
+                    " AND ctype = '" . $mig->getCid2() . "'" .
+                    " AND name = '" . $mig->getCid3() . "'";
+        }
+
+        if ($sql) {
+//            echo "\n" . $sql . "\n";
+            $data = $this->db->fetchRow($sql);
+        }
+        return $data;
     }
 
 

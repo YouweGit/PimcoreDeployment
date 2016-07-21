@@ -1,7 +1,9 @@
 <?php
 
 require_once 'bootstrap.php';
-Zend_Session::start();
+if(\Pimcore\Version::getRevision() <= 3543) {   // only pimcore 3
+    Zend_Session::start();
+}
 
 //this is optional, memory limit could be increased further (pimcore default is 1024M)
 ini_set('memory_limit', '1024M');

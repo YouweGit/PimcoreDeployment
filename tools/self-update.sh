@@ -4,7 +4,7 @@ CURRENT_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # make sure we are not in git
 if [[ -d ${CURRENT_PATH}/../.git ]];
 then
-    echo "You are currently in a git repository, self-update is only for projects other then deploy plugin"
+    echo "You are currently in a git repository, self-update is only for projects other than deploy plugin"
     exit 1
 fi
 echo ${CURRENT_PATH}/../../Deployment

@@ -7,9 +7,9 @@ then
     echo "You are currently in a git repository, self-update is only for projects other then deploy plugin"
     exit 1
 fi
-
+echo ${CURRENT_PATH}/../../Deployment
 
 git clone -b master --single-branch ssh://git@source.youwe.nl:7999/pimb2b/deployment.git /tmp/pimcore-deployment
-rm /tmp/pimcore-deployment/.git
-mv /tmp/pimcore-deployment ${CURRENT_PATH}/../../Deployment
+rm -rf /tmp/pimcore-deployment/.git
+rsync -abviuzP /tmp/pimcore-deployment/ ${CURRENT_PATH}/../../Deployment
 echo "Update complete"

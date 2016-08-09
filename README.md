@@ -89,6 +89,17 @@ data in the tables:
     ./htdocs/plugins/Deployment/cli/import-staticdata.sh
     
 
+Import all custom layouts json definitions:
+
+    ./htdocs/plugins/Deployment/cli/import-customlayouts.sh
+
+Export all custom layouts json definitions:
+
+    ./htdocs/plugins/Deployment/cli/export-customlayouts.sh
+
+
+
+
 Deployment to server
 --------------------
 
@@ -126,7 +137,6 @@ write to the definition files. In case of local development, a low security solu
     sudo chmod -R 777 .
 
 
-
 Installation
 ------------
 
@@ -161,6 +171,16 @@ Also, add this to your .gitignore:
     /htdocs/plugins/Deployment
     
  
+
+
+Self-update functionality
+------------------
+
+Designed to allow Youwe developers to keep this plugin in separate repository while sharing with 3rd party:
+
+     1. Make changes in deployment plugin 
+     2. Create pr to master
+     3. Run tools/self-update.sh in the project where is used
 
 
 Plugin development

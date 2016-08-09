@@ -18,6 +18,8 @@ define("PIMCORE_ADMIN", true);
 $actionen = [
     'import-definition',
     'export-definition',
+    'import-customlayout',
+    'export-customlayout',
     'import-staticdata',
     'export-staticdata',
     'import-content',
@@ -42,6 +44,8 @@ try {
             'Action parameter should be one of the following:' . "\n" .
             'import-definition  : re-create pimcore classes from json definitions' . "\n" .
             'export-definition  : re-create json definitions from pimcore classes'. "\n" .
+            'import-customlayout  : re-create pimcore custom layouts from json definitions' . "\n" .
+            'export-customlayout  : re-create json definitions from pimcore custom layouts'. "\n" .
             'import-staticdata  : re-create selected tables from static data dump' . "\n" .
             'export-staticdata  : re-create static data dump from selected tables'. "\n" .
             'import-content     : update content on server' . "\n" .
@@ -91,6 +95,7 @@ if (!\Pimcore\ExtensionManager::isEnabled('plugin', $plugin)) {
 $def = new \Deployment\Definition();
 $mig = new \Deployment\Migration();
 $con = new \Deployment\Content();
+$cl = new \Deployment\CustomLayout();
 
 switch ($opts->action) {
     case 'clear-classes':
@@ -104,6 +109,12 @@ switch ($opts->action) {
         break;
     case 'export-definition':
         $def->export($classes);
+        break;
+    case 'import-customlayout':
+        $cl->import();
+        break;
+    case 'export-customlayout':
+        $cl->export();
         break;
     case 'import-staticdata':
         $mig->migrate();

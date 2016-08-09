@@ -12,3 +12,4 @@ fi
 git clone -b master --single-branch ssh://git@source.youwe.nl:7999/pimb2b/deployment.git /tmp/pimcore-deployment
 rm /tmp/pimcore-deployment/.git
 mv /tmp/pimcore-deployment ${CURRENT_PATH}/../../Deployment
+echo "Update complete"

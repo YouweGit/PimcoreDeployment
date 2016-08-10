@@ -69,9 +69,7 @@ class Migration extends \Deployment\DAbstract
      */
     public function dumpTables()
     {
-
-        $cnf = new \Zend_Config_Xml(PIMCORE_CONFIGURATION_DIRECTORY . '/system.xml');
-
+        $cnf = \Pimcore\Config::getSystemConfig();
         $return_var = NULL;
         $output = NULL;
         $u = $cnf->database->params->username;
@@ -105,7 +103,7 @@ class Migration extends \Deployment\DAbstract
      */
     public function migrate()
     {
-        $cnf = new \Zend_Config_Xml(PIMCORE_CONFIGURATION_DIRECTORY . '/system.xml');
+        $cnf = \Pimcore\Config::getSystemConfig();
 
         $u = $cnf->database->params->username;
         $p = $cnf->database->params->password;

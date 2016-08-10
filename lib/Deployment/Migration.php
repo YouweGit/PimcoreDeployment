@@ -32,7 +32,7 @@ class Migration extends \Deployment\DAbstract
      */
     private $migrationSqlFile = 'migration.sql';
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         $this->staticDataTables = $this->config->staticDataTables->table ? is_string($this->config->staticDataTables->table) ? array($this->config->staticDataTables->table) : $this->config->staticDataTables->table->toArray() : array();
@@ -55,12 +55,15 @@ class Migration extends \Deployment\DAbstract
      */
     private function finish()
     {
-        $zipFile = $this->backupPath . $this->dumpFileName;
-        $zip = new \ZipArchive();
-        $zip->open($zipFile, \ZIPARCHIVE::OVERWRITE);
-        $zip->addFile($this->backupPath . $this->migrationSqlFile, $this->migrationSqlFile);
-        $zip->close();
-        @unlink($this->backupPath . $this->migrationSqlFile);
+        $fullPathMigrationFile = $this->backupPath . $this->migrationSqlFile;
+        if(is_file($fullPathMigrationFile)){
+            $zipFile = $this->backupPath . $this->dumpFileName;
+            $zip = new \ZipArchive();
+            $zip->open($zipFile, \ZipArchive::OVERWRITE | \ZipArchive::CREATE);
+            $zip->addFile($fullPathMigrationFile, $this->migrationSqlFile);
+            $zip->close();
+            @unlink($fullPathMigrationFile);
+        }
     }
 
     /**
@@ -115,19 +118,5 @@ class Migration extends \Deployment\DAbstract
         $command = "unzip -p $zipFile | mysql -u$u -p$p -h$h $db";
         print "EXEC: $command \n";
         exec($command, $output, $return_var);
-    }
-
-    /**
-     * Executes query
-     * @param string $query
-     */
-    private function executeQuery($query)
-    {
-        print $query . "\n";
-        try {
-            $this->adapter->query($query);
-        } catch (Exception $e) {
-            print $e->getMessage() . "\n";
-        }
     }
 }

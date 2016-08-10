@@ -64,7 +64,7 @@ class CustomLayout {
      * @throws \Exception
      */
     public function import() {
-
+        $this->db->query('TRUNCATE custom_layouts');
         foreach (glob($this->path . '*.json') as $filename) {
             echo 'Importing: ' . str_replace(PIMCORE_WEBSITE_PATH, '', $filename) . "\n";
             $this->save($filename);
@@ -73,7 +73,6 @@ class CustomLayout {
 
     /**
      * @param string $filename
-     * @return bool
      * @throws Exception
      * @throws Zend_Json_Exception
      */
@@ -81,34 +80,21 @@ class CustomLayout {
         $json = file_get_contents($filename);
         $importData = \Zend_Json::decode($json);
 
-        $id = $this->db->quote($importData['id']);
-        $name = $this->db->quote($importData['name']);
-        $userOwner = $this->db->quote($importData['userOwner']);
-        $classId = $this->db->quote($importData['classId']);
-        $default = $this->db->quote($importData['default']);
+        // Safe to do an insert with id as long as custom_layouts is truncated at import()
+        $this->db->insert('custom_layouts', [
+            'id' => $importData['id'],
+            'name' => $importData['name'],
+            'description' => $importData['description'],
+            'userOwner' => $importData['userOwner'],
+            'classId' => $importData['classId'],
+            'default' => $importData['default'],
+        ]);
 
-        $customLayout = PimcoreCustomLayout::getById($id);
-        if (!$customLayout) {
-            $this->db->query("INSERT INTO custom_layouts(`id`,`classId`,`name`, `userOwner`, `default`) VALUES($id, $classId, $name, $userOwner, $default)");
-        } else {
-            $this->db->query("UPDATE custom_layouts SET `classId` = $classId, `name` = $name, `userOwner` = $userOwner, `default` = $default WHERE `id`=$id");
-        }
-
-        $customLayout = PimcoreCustomLayout::getById($id);
-        return $this->importCustomLayoutDefinitionFromJson($customLayout, $importData);
-    }
-
-    /**
-     * @param PimcoreCustomLayout $customLayout
-     * @param array $importData
-     * @throws \Exception
-     */
-    private function importCustomLayoutDefinitionFromJson($customLayout, $importData) {
-        /** @var array $layout */
+        $customLayout = PimcoreCustomLayout::getById($importData['id']);
         $layout = Object\ClassDefinition\Service::generateLayoutTreeFromArray($importData['layoutDefinitions'], true);
         $customLayout->setLayoutDefinitions($layout);
-        $customLayout->setName($importData['name']);
-        $customLayout->setDescription($importData['description']);
         $customLayout->save();
     }
+
+
 }

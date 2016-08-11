@@ -1,5 +1,5 @@
 {
-  "name": "youwe/deployment",
+  "name": "youwe/pimcore-deployment",
   "type": "pimcore-plugin",
   "description": "Youwe Pimcore Deployment",
   "autoload": {

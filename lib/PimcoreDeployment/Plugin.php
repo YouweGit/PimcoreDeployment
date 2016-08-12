@@ -1,6 +1,6 @@
 <?php
 
-namespace Deployment;
+namespace PimcoreDeployment;
 
 use Pimcore\API\Plugin as PluginLib;
 use Pimcore\Model\Object\ClassDefinition;
@@ -21,7 +21,7 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
     public static function getConfig()
     {
         $customconfig_file = PIMCORE_CONFIGURATION_DIRECTORY . '/deployment.xml';
-        $defaultconfig_file = PIMCORE_PLUGINS_PATH . '/Deployment/config.default.xml';
+        $defaultconfig_file = PIMCORE_PLUGINS_PATH . '/PimcoreDeployment/config.default.xml';
 
         if(file_exists($customconfig_file))
         {
@@ -45,7 +45,7 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
     public static function install()
     {
         // check if the plugins table structure is already exported by the plugin itself
-        $def = new \Deployment\Definition();
+        $def = new \PimcoreDeployment\Definition();
         $plugin_data_table_file_exported = $def->path . 'class_DeploymentDataMigration.json';
         if(file_exists($plugin_data_table_file_exported))
         {
@@ -97,7 +97,7 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
      */
     public static function getTranslationFileDirectory()
     {
-        return PIMCORE_PLUGINS_PATH . '/Deployment/static/texts';
+        return PIMCORE_PLUGINS_PATH . '/PimcoreDeployment/static/texts';
     }
 
     /**
@@ -107,9 +107,9 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
     public static function getTranslationFile($language)
     {
         if (is_file(self::getTranslationFileDirectory() . "/$language.csv")) {
-            return "/Deployment/static/texts/$language.csv";
+            return "/PimcoreDeployment/static/texts/$language.csv";
         } else {
-            return '/Deployment/static/texts/en.csv';
+            return '/PimcoreDeployment/static/texts/en.csv';
         }
     }
 

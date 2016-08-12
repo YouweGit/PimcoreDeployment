@@ -7,7 +7,7 @@ class Migration extends \Deployment\DAbstract
     /**
      * @var string
      */
-    private $backupPath = '/var/deployment/migration/';
+    private $backupPath = '/var/Plugins/PimcoreDeployment/migration/';
     /**
      * @var string
      */

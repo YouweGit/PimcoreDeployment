@@ -1,10 +1,10 @@
 <?php
 
-namespace Deployment;
+namespace PimcoreDeployment;
 
 use Pimcore\Model\Object\DeploymentDataMigration;
 
-class Content extends \Deployment\DAbstract
+class Content extends \PimcoreDeployment\DAbstract
 {
     /**
      * @var string
@@ -120,7 +120,7 @@ class Content extends \Deployment\DAbstract
 //                echo " ($id1-$id2-$id3) ";
 
                 // look up current migration setting by doc id
-                $migration_object = \Deployment\DeploymentDataMigrationManager::createKeyByCnameAndId($tn, $id1, $id2, $id3);
+                $migration_object = \PimcoreDeployment\DeploymentDataMigrationManager::createKeyByCnameAndId($tn, $id1, $id2, $id3);
 
                 echo $migration_object->getMigrationKey() . "\n";
             }

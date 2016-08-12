@@ -1,6 +1,6 @@
 <?php
 
-namespace Deployment;
+namespace PimcoreDeployment;
 
 use Exception;
 use Pimcore\Db;
@@ -18,7 +18,7 @@ class CustomLayout {
 
     public function __construct() {
         $this->db = Db::get();
-        $this->path = PIMCORE_WEBSITE_PATH . '/var/deployment/migration/custom_layouts/';
+        $this->path = PIMCORE_WEBSITE_PATH . '/var/Plugins/PimcoreDeployment/migration/custom_layouts/';
     }
 
     /**

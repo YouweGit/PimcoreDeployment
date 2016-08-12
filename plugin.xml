@@ -3,7 +3,7 @@
 		<plugin>
 
             <!-- the plugin name [A-Za-z_] -->
-            <pluginName>Deployment</pluginName>
+            <pluginName>PimcoreDeployment</pluginName>
 
             <!-- a short description -->
 			<pluginDescription><![CDATA[]]></pluginDescription>
@@ -14,29 +14,29 @@
             <pluginBuildTimestamp>0</pluginBuildTimestamp>
 
             <!-- put in the URL for the plugin configuration eg. /plugin/Deployment/admin/index -->
-			<pluginIframeSrc>/plugin/Deployment/admin/setting</pluginIframeSrc>
+			<pluginIframeSrc>/plugin/PimcoreDeployment/admin/setting</pluginIframeSrc>
 
             <!-- className of the plugin which extends Pimcore_API_Plugin_Abstract-->
-			<pluginClassName>\Deployment\Plugin</pluginClassName>
+			<pluginClassName>\PimcoreDeployment\Plugin</pluginClassName>
 
             <!-- include paths relative to plugin-directory -->
 			<pluginIncludePaths>
-				<path>/Deployment/lib</path>
+				<path>/PimcoreDeployment/lib</path>
 			</pluginIncludePaths>
 
 			<!-- namespaces to register with autoloader-->
 			<pluginNamespaces>
-				<namespace>Deployment</namespace>
+				<namespace>PimcoreDeployment</namespace>
 			</pluginNamespaces>
 
 			<!-- js files with path relative to plugin-directory -->
 			<pluginJsPaths>
-                <path>/plugins/Deployment/static/js/startup.js</path>
+                <path>/plugins/PimcoreDeployment/static/js/startup.js</path>
 			</pluginJsPaths>
 
 			<!-- css files with path relative to plugin-directory -->
 			<pluginCssPaths>
-                <path>/plugins/Deployment/static/css/example.css</path>
+                <path>/plugins/PimcoreDeployment/static/css/example.css</path>
 			</pluginCssPaths>
 		</plugin>
 </zend-config>

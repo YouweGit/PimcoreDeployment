@@ -5,7 +5,7 @@ Version: Pimcore 3.x
 
 Developed by: Youwe (Manea, Yasar, Roelf, Bas)
 
-Reference / latest developments: Roelf
+Reference / latest developments: Roelf + Manea
 
 
 

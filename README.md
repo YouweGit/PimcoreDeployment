@@ -150,14 +150,9 @@ Plugin can be installed through composer. Add json to your composer.json:
             "document-root-path": "htdocs"
         },
         "require": {
-
-            "YouweGit/PimcoreDeployment": "^0.1.0"
+            "youwe/pimcore-deployment": "^0.1.0"
         },
         "repositories": [
-            {
-                "type": "git",
-                "url": "ssh://git@github.com:YouweGit/PimcorePathManager.git"
-            },
             {
                 "type": "git",
                 "url": "ssh://git@github.com:YouweGit/PimcoreDeployment.git"

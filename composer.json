@@ -1,17 +1,7 @@
 {
   "name": "youwe/pimcore-deployment",
   "type": "pimcore-plugin",
-  "description": "Youwe Pimcore Deployment",
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://packages.youwe.nl"
-    },
-    {
-      "type": "git",
-      "url": "https://youwe:open@packages.youwe.nl/"
-    }
-  ],
+  "description": "Pimcore Deployment",
   "autoload": {
     "psr-0": {"Pimcore\\Composer\\": "src/"}
   },
@@ -20,6 +10,6 @@
   },
   "require": {
     "pimcore/installer-plugin": "^1.3",
-    "YouweGit/PimcorePathManager": "^0.1.0"
+    "youwe/pimcore-path-manager": "^0.1.0"
   }
 }

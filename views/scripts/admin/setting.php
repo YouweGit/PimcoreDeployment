@@ -1,7 +1,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Deployment Settings</title>
+    <title>PimcoreDeployment Settings</title>
     <style>
         .youwe-deploy-setting {
             font: normal 11px/13px arial, tahoma, helvetica, sans-serif;
@@ -42,7 +42,7 @@
 </head>
 <body>
 
-<form action="/plugin/Deployment/admin/save-setting" method="POST" class="youwe-deploy-setting">
+<form action="/plugin/PimcoreDeployment/admin/save-setting" method="POST" class="youwe-deploy-setting">
     <fieldset>
         <legend>Static table data to copy (overwriting everything)</legend>
             <?php foreach ($this->tables as $name => $table):?>
@@ -57,7 +57,7 @@
     <button type="submit" name="save" value="1">Save</button>
 </form>
 
-<form action="/plugin/Deployment/admin/save-keys" method="POST" class="youwe-deploy-setting">
+<form action="/plugin/PimcoreDeployment/admin/save-keys" method="POST" class="youwe-deploy-setting">
     <fieldset>
         <legend>Documents to migrate</legend>
             <table>

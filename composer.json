@@ -9,7 +9,7 @@
     },
     {
       "type": "git",
-      "url": "ssh://git@source.youwe.nl:7999/pimb2b/deployment.git"
+      "url": "ssh://git@github.com:YouweGit/PimcoreDeployment.git"
     }
   ],
   "autoload": {

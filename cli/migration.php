@@ -92,10 +92,10 @@ if (!\Pimcore\ExtensionManager::isEnabled('plugin', $plugin)) {
     die();
 }
 
-$def = new \Deployment\Definition();
-$mig = new \Deployment\Migration();
-$con = new \Deployment\Content();
-$cl = new \Deployment\CustomLayout();
+$def = new \PimcoreDeployment\Definition();
+$mig = new \PimcoreDeployment\Migration();
+$con = new \PimcoreDeployment\Content();
+$cl = new \PimcoreDeployment\CustomLayout();
 
 switch ($opts->action) {
     case 'clear-classes':

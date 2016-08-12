@@ -1,6 +1,6 @@
 <?php
 
-namespace Deployment;
+namespace PimcoreDeployment;
 
 use Pimcore\Model\Object\DeploymentDataMigration;
 

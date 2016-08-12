@@ -1,7 +1,7 @@
 <?php
 
 
-class Deployment_AdminController extends \Pimcore\Controller\Action\Admin {
+class PimcoreDeployment_AdminController extends \Pimcore\Controller\Action\Admin {
     
     public function indexAction () {
 
@@ -18,7 +18,7 @@ class Deployment_AdminController extends \Pimcore\Controller\Action\Admin {
             if(substr($k,0,6)==='_data_') unset($result[$k]);
         }
         $this->view->tables = $result;
-        $config = \Deployment\Plugin::getConfig()->toArray();
+        $config = \PimcoreDeployment\Plugin::getConfig()->toArray();
         if(!isset($config['staticDataTables']['table']))
         {
             $config['staticDataTables']['table'] = array();
@@ -36,7 +36,7 @@ class Deployment_AdminController extends \Pimcore\Controller\Action\Admin {
             // look up current migration setting by doc id
             $doc['migration_mode'] = 'default';
             $doc['migration_key'] = '';
-            $migration_object = \Deployment\DeploymentDataMigrationManager::retrieveObjectByCnameAndId('documents', $doc['id']);
+            $migration_object = \PimcoreDeployment\DeploymentDataMigrationManager::retrieveObjectByCnameAndId('documents', $doc['id']);
             if($migration_object) {
                 $doc['migration_mode'] = $migration_object->getMode();
                 $doc['migration_key'] = $migration_object->getMigrationKey();
@@ -47,9 +47,9 @@ class Deployment_AdminController extends \Pimcore\Controller\Action\Admin {
     public function saveSettingAction()
     {
         $staticDataTables = $this->getParam('staticDataTables');
-        $config = \Deployment\Plugin::getConfig();
+        $config = \PimcoreDeployment\Plugin::getConfig();
         $config->staticDataTables = $staticDataTables;
-        \Deployment\Plugin::setConfig($config);
+        \PimcoreDeployment\Plugin::setConfig($config);
         $this->forward("setting");
     }
 
@@ -67,7 +67,7 @@ class Deployment_AdminController extends \Pimcore\Controller\Action\Admin {
 
         foreach($docs as $docid => &$mode)
         {
-            \Deployment\DeploymentDataMigrationManager::setModeByCnameAndId('documents', $docid, null, null, $mode);
+            \PimcoreDeployment\DeploymentDataMigrationManager::setModeByCnameAndId('documents', $docid, null, null, $mode);
         }
 
         $this->forward("setting");

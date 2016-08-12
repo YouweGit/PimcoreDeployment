@@ -1,6 +1,6 @@
 <?php
 
-namespace Deployment;
+namespace PimcoreDeployment;
 
 abstract class DAbstract {
     /**
@@ -18,7 +18,7 @@ abstract class DAbstract {
      */
     public function __construct()
     {
-        $this->config = \Deployment\Plugin::getConfig();
+        $this->config = \PimcoreDeployment\Plugin::getConfig();
 
         $this->adapter = \Pimcore\Resource::get();
         $this->dbName = $this->adapter->getConfig()['dbname'];

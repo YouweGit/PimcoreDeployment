@@ -5,7 +5,7 @@ Version: Pimcore 3.x
 
 Developed by: Youwe (Manea, Yasar, Roelf, Bas)
 
-Reference / latest developments: Roelf + Manea
+Reference / latest developments: Roelf, Manea
 
 
 
@@ -108,6 +108,7 @@ deploying the updated code:
 
     ./htdocs/plugins/Deployment/cli/import-definition.sh
     ./htdocs/plugins/Deployment/cli/import-staticdata.sh
+    ./htdocs/plugins/Deployment/cli/import-customlayouts.sh
     (another command will be added here as soon as the document-migration is done)
 
     
@@ -142,26 +143,33 @@ Installation
 
 Plugin can be installed through composer. Add json to your composer.json:
 
+
+
     {
         "config": {
             "document-root-path": "htdocs"
         },
         "require": {
-            "pimcore/installer-plugin": "^1.3",
-            "youwe/pathmanager": "^0.1.0",
-            "youwe/deployment": "^0.1.0"
+
+            "YouweGit/PimcoreDeployment": "^0.1.0"
         },
         "repositories": [
             {
                 "type": "git",
-                "url": "ssh://git@source.youwe.nl:7999/pimb2b/deployment.git"
+                "url": "ssh://git@github.com:YouweGit/PimcorePathManager.git"
             },
             {
                 "type": "git",
-                "url": "ssh://git@source.youwe.nl:7999/pimb2b/pathmanager.git"
+                "url": "ssh://git@github.com:YouweGit/PimcoreDeployment.git"
             }
         ]
     }
+
+
+Should be auto-included:
+
+    "pimcore/installer-plugin": "^1.3",
+    "YouweGit/PimcorePathManager": "^0.1.0",
 
 
 Activate/enable the plugin in pimcore's extras->extensions list.

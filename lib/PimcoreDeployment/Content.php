@@ -1,10 +1,10 @@
 <?php
 
-namespace Deployment;
+namespace PimcoreDeployment;
 
 use Pimcore\Model\Object\DeploymentDataMigration;
 
-class Content extends \Deployment\DAbstract
+class Content extends \PimcoreDeployment\DAbstract
 {
     /**
      * @var string

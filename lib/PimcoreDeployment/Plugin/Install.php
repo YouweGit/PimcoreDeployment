@@ -28,7 +28,7 @@
  * @author      Rafał Gałka <rafal@modernweb.pl>
  * @copyright   Copyright (c) 2007-2012 ModernWeb (http://www.modernweb.pl)
  */
-class Deployment_Plugin_Install
+class PimcoreDeployment_Plugin_Install
 {
     /**
      * @var User

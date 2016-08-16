@@ -1,8 +1,8 @@
 <?php
 
-namespace Deployment;
+namespace PimcoreDeployment;
 
-class Migration extends \Deployment\DAbstract
+class Migration extends DAbstract
 {
     /**
      * @var string

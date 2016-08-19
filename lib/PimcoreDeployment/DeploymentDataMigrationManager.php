@@ -2,6 +2,7 @@
 
 namespace PimcoreDeployment;
 
+use PathManager\FolderHelper;
 use Pimcore\Model\Object\DeploymentDataMigration;
 
 class DeploymentDataMigrationManager {
@@ -47,7 +48,7 @@ class DeploymentDataMigrationManager {
         if(!$deployment_data_object) {
 
             // Create a new object (all related object migration keys will be created by the CLI)
-            $parent_id_of_new_object = \PathManager_PathManager::getOrCreateSubfolder('/deployment', 'datamigration');
+            $parent_id_of_new_object = FolderHelper::getOrCreateSubfolder('/deployment', 'datamigration');
 
             $deployment_data_object = new DeploymentDataMigration();
             $deployment_data_object->setCName($cname);
@@ -77,7 +78,7 @@ class DeploymentDataMigrationManager {
         if(!$deployment_data_object) {
 
             // Create a new object (all related object migration keys will be created by the CLI)
-            $parent_id_of_new_object = \PathManager_PathManager::getOrCreateSubfolder('/deployment', 'datamigration');
+            $parent_id_of_new_object = FolderHelper::getOrCreateSubfolder('/deployment', 'datamigration');
 
             $deployment_data_object = new DeploymentDataMigration();
             $deployment_data_object->setCName($cname);

@@ -9,8 +9,8 @@ class Content extends \PimcoreDeployment\DAbstract
     /**
      * @var string
      */
-    private $backupPath = '/var/deployment/migration/content/';
-    private $backupTmpPath = '/var/deployment/migration/content/tmp/';
+    private $backupPath = PIMCORE_WEBSITE_VAR . '/plugins/PimcoreDeployment/migration/content/';
+    private $backupTmpPath = PIMCORE_WEBSITE_VAR . '/plugins/PimcoreDeployment/migration/content/tmp/';
     /**
      * @var string
      */
@@ -58,8 +58,6 @@ class Content extends \PimcoreDeployment\DAbstract
         parent::__construct();
         $this->db = \Pimcore\Resource::get();
         $this->ddmm = new DeploymentDataMigrationManager();
-        $this->backupPath = PIMCORE_WEBSITE_PATH . $this->backupPath;
-        $this->backupTmpPath = PIMCORE_WEBSITE_PATH . $this->backupTmpPath;
         \Pimcore\File::mkdir($this->backupPath);
         \Pimcore\File::mkdir($this->backupTmpPath);
     }

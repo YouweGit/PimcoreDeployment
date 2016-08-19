@@ -11,7 +11,7 @@ class Definition {
 
     function __construct() {
         $this->db = \Pimcore\Resource::get();
-        $this->path = PIMCORE_WEBSITE_PATH . '/var/deployment/migration/classes/';
+        $this->path = PIMCORE_WEBSITE_VAR . '/plugins/PimcoreDeployment/migration/classes/';
     }
 
     /**
@@ -31,7 +31,7 @@ class Definition {
 
             $json = $this->generateClassDefinitionJson($class);
             $filename = $this->path . 'class_' . $class->getName() . '.json';
-            echo "Exporting: " . str_replace(PIMCORE_WEBSITE_PATH, '', $filename) . " (" . strlen($json) . " bytes)\n";
+            echo "Exporting: " . str_replace(PIMCORE_WEBSITE_VAR, '', $filename) . " (" . strlen($json) . " bytes)\n";
             \Pimcore\File::put($filename, $json);
         }
     }
@@ -133,7 +133,7 @@ class Definition {
             $class = str_replace('.json', '', $class);
             if($classes && !in_array($class, $classes)) continue;
 
-            echo "Importing: " . str_replace(PIMCORE_WEBSITE_PATH, '', $filename) . " (" . filesize($filename) . " bytes)\n";
+            echo "Importing: " . str_replace(PIMCORE_WEBSITE_VAR, '', $filename) . " (" . filesize($filename) . " bytes)\n";
             $this->save($filename);
         }
     }

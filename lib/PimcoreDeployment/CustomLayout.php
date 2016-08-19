@@ -18,7 +18,7 @@ class CustomLayout {
 
     public function __construct() {
         $this->db = Db::get();
-        $this->path = PIMCORE_WEBSITE_PATH . '/var/Plugins/PimcoreDeployment/migration/custom_layouts/';
+        $this->path = PIMCORE_WEBSITE_VAR . '/plugins/PimcoreDeployment/migration/custom_layouts/';
     }
 
     /**
@@ -37,7 +37,7 @@ class CustomLayout {
 
             $json = $this->generateCustomLayoutJson($customLayout);
             $filename = $this->path . 'custom_layout_' . $customLayout->getName() . '.json';
-            echo 'Exporting: ' . str_replace(PIMCORE_WEBSITE_PATH, '', $filename) . "\n";
+            echo 'Exporting: ' . str_replace(PIMCORE_WEBSITE_VAR, '', $filename) . "\n";
             File::put($filename, $json);
         }
     }
@@ -66,7 +66,7 @@ class CustomLayout {
     public function import() {
         $this->db->query('TRUNCATE custom_layouts');
         foreach (glob($this->path . '*.json') as $filename) {
-            echo 'Importing: ' . str_replace(PIMCORE_WEBSITE_PATH, '', $filename) . "\n";
+            echo 'Importing: ' . str_replace(PIMCORE_WEBSITE_VAR, '', $filename) . "\n";
             $this->save($filename);
         }
     }

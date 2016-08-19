@@ -1,7 +1,7 @@
 PIMCORE DEPLOYMENT EXTENSION
 ----------------------------
 
-Version: Pimcore 3.x
+Version: Pimcore 3.x / 4.x 
 
 Developed by: Youwe (Manea, Yasar, Roelf, Bas)
 
@@ -151,7 +151,7 @@ Plugin can be installed through composer. Add json to your composer.json:
         },
         "require": {
 
-            "YouweGit/PimcoreDeployment": "^0.1.0"
+            "youwe/pimcore-deployment": "^0.1.0"
         },
         "repositories": [
             {
@@ -169,34 +169,24 @@ Plugin can be installed through composer. Add json to your composer.json:
 Should be auto-included:
 
     "pimcore/installer-plugin": "^1.3",
-    "YouweGit/PimcorePathManager": "^0.1.0",
+    "youwe/path-manager": "^0.1.0",
 
 
 Activate/enable the plugin in pimcore's extras->extensions list.
 
 Also, add this to your .gitignore:
 
-    /htdocs/plugins/Deployment
+    plugins/PimcoreDeployment
+    plugins/PathManager
     
  
-
-
-Self-update functionality
-------------------
-
-Designed to allow Youwe developers to keep this plugin in separate repository while sharing with 3rd party:
-
-     1. Make changes in deployment plugin 
-     2. Create pr to master
-     3. Run tools/self-update.sh in the project where is used
-
-
 Plugin development
 ------------------
 
 To create a new version, check out the master branch somewhere and go:
 
-    git tag 0.1.0
+    git tag
+    git tag 0.x.x (latest tag + 1)
     git push origin --tags
 
 

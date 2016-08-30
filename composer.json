@@ -1,0 +1,14 @@
+{
+  "name": "youwe/pimcore-deployment",
+  "type": "pimcore-plugin",
+  "description": "Youwe Pimcore Deployment",
+  "autoload": {
+    "psr-0": {"Pimcore\\Composer\\": "src/"}
+  },
+  "extra": {
+    "class": "Pimcore\\Composer\\PluginInstaller"
+  },
+  "require": {
+    "pimcore/installer-plugin": "^1.3"
+  }
+}

@@ -1,0 +1,5 @@
+"deployment_installed_successfully","Das Deployment Plugin wurde erfolgreich installiert. Bitte Pimcore neu laden! Bitte benutzen Sie NICHT die install Funktion auf dem Server. Benutzen Sie die Export Definition Lokal und die Import Definition auf dem Server um den Plugin zu installieren."
+"deployment_install_failed","Das Deployment Plugin konnte nicht installiert werden. Für weitere Details bitte ins log schauen."
+"deployment_uninstalled_successfully","Das Deployment Plugin wurde erfolgreich deinstalliert. Bitte Pimcore neu laden!"
+"deployment_uninstall_failed","Das Deployment Plugin konnte nicht deinstalliert werden. Für weitere Details bitte ins log schauen."
+"deployment_install_definition_import","Bitte installieren Sie das Plugin mit dem Befehl import-Definition."

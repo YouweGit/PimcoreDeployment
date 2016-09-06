@@ -32,7 +32,9 @@ $actionen = [
     'export-content',
     'drop-views',
     'clear-classes',
-    'list-definitionexport'];
+    'list-definitionexport',
+    'export-dump',
+    'import-dump'];
 
 try {
     $opts = new Zend_Console_Getopt(array(
@@ -62,6 +64,8 @@ try {
             'drop-views              : drop views or tables that should be views' . "\n" .
             'clear-classes           : empty the classes table' . "\n" .
             'list-definitionexport   : list the current jsons' . "\n" .
+            'export-dump             : export database to sql file' . "\n" .
+            'import-dump             : import database from sql file' . "\n" .
             "\n" .
             'Optional classes parameter may list the class names comma seperated.' . "\n" .
             "\n" .
@@ -149,7 +153,23 @@ switch ($opts->action) {
     case 'import-field-collection':
         $fc->import();
         break;
-
+    case 'import-dump':
+        $mig->importDump();
+        break;
+    case 'export-dump':
+        $mig->exportDump();
+        break;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 

@@ -34,7 +34,10 @@ $actionen = [
     'clear-classes',
     'list-definitionexport',
     'export-dump',
-    'import-dump'];
+    'import-dump',
+    'export-bricks',
+    'import-bricks',
+];
 
 try {
     $opts = new Zend_Console_Getopt(array(
@@ -112,6 +115,7 @@ $mig        = new \PimcoreDeployment\Migration();
 $con        = new \PimcoreDeployment\Content();
 $cl         = new \PimcoreDeployment\CustomLayout();
 $fc         = new \PimcoreDeployment\FieldCollection();
+$ob         = new \PimcoreDeployment\ObjectBrick();
 
 switch ($opts->action) {
     case 'clear-classes':
@@ -159,17 +163,10 @@ switch ($opts->action) {
     case 'export-dump':
         $mig->exportDump();
         break;
+    case 'export-bricks':
+        $ob->export();
+        break;
+    case 'import-bricks':
+        $ob->import();
+        break;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

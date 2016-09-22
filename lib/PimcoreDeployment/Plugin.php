@@ -46,23 +46,24 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
      */
     public static function install()
     {
-        // check if the plugins table structure is already exported by the plugin itself
-        $def = new \PimcoreDeployment\Definition();
-        $plugin_data_table_file_exported = $def->path . 'class_DeploymentDataMigration.json';
-        if(file_exists($plugin_data_table_file_exported))
-        {
-            return self::getTranslate()->_('deployment_install_definition_import');
-        }
-
-        try {
-            $install = new \PimcoreDeployment\Plugin\Install();
-            $install->createClass('DeploymentDataMigration');
-        } catch(\Exception $e) {
-            \logger::crit($e);
-            return self::getTranslate()->_('deployment_install_failed');
-        }
-
-        return self::getTranslate()->_('deployment_installed_successfully');
+//        // check if the plugins table structure is already exported by the plugin itself
+//        $def = new \PimcoreDeployment\Definition();
+//        $plugin_data_table_file_exported = $def->path . 'class_DeploymentDataMigration.json';
+//        if(file_exists($plugin_data_table_file_exported))
+//        {
+//            return self::getTranslate()->_('deployment_install_definition_import');
+//        }
+//
+//        try {
+//            $install = new \PimcoreDeployment\Plugin\Install();
+//            $install->createClass('DeploymentDataMigration');
+//        } catch(\Exception $e) {
+//            \logger::crit($e);
+//            return self::getTranslate()->_('deployment_install_failed');
+//        }
+//
+//        return self::getTranslate()->_('deployment_installed_successfully');
+        return 'ok';
     }
 
     /**
@@ -70,15 +71,16 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
      */
     public static function uninstall()
     {
-        try {
-            $install = new \PimcoreDeployment\Plugin\Install();
-            $install->removeClass('DeploymentDataMigration');
-
-            return self::getTranslate()->_('deployment_uninstalled_successfully');
-        } catch (\Exception $e) {
-            \Logger::crit($e);
-            return self::getTranslate()->_('deployment_uninstall_failed');
-        }
+//        try {
+//            $install = new \PimcoreDeployment\Plugin\Install();
+//            $install->removeClass('DeploymentDataMigration');
+//
+//            return self::getTranslate()->_('deployment_uninstalled_successfully');
+//        } catch (\Exception $e) {
+//            \Logger::crit($e);
+//            return self::getTranslate()->_('deployment_uninstall_failed');
+//        }
+        return 'plugin is always installed'
     }
 
     /**
@@ -86,12 +88,13 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
      */
     public static function isInstalled()
     {
-        $entry = Classdefinition::getByName('DeploymentDataMigration');
-        if ($entry) {
-            return true;
-        }
-
-        return false;
+//        $entry = Classdefinition::getByName('DeploymentDataMigration');
+//        if ($entry) {
+//            return true;
+//        }
+//
+//        return false;
+        return true;
     }
 
     /**

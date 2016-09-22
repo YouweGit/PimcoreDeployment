@@ -80,7 +80,7 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
 //            \Logger::crit($e);
 //            return self::getTranslate()->_('deployment_uninstall_failed');
 //        }
-        return 'plugin is always installed'
+        return 'plugin is always installed';
     }
 
     /**

@@ -49,7 +49,8 @@ class Definition {
             $data->fieldDefinitions,
             $data->modificationDate,
             $data->modificationDate,
-            $data->userOwner
+            $data->userOwner,
+            $data->userModification
         );
 
         $json = \Zend_Json::encode($data);

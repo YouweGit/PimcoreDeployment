@@ -6,6 +6,7 @@ use Exception;
 use Pimcore\File;
 use Pimcore\Model\Object\Objectbrick as ObjectBrickObject;
 use Zend_Json;
+use Pimcore\Model\Object\ClassDefinition\Service;
 
 /**
  * Class ObjectBrick
@@ -19,7 +20,7 @@ class ObjectBrick {
     /**
      * ObjectBrick constructor.
      */
-    function __construct() {
+    public function __construct() {
         $this->path = PIMCORE_WEBSITE_VAR . '/plugins/PimcoreDeployment/migration/objectBricks/';
     }
 
@@ -79,18 +80,8 @@ class ObjectBrick {
     private function save($filename) {
         $json = file_get_contents($filename);
         $importData = Zend_Json::decode($json);
-
         $object_brick = new ObjectBrickObject\Definition();
         $object_brick->setKey($importData['key']);
-        $object_brick->setClassDefinitions($importData['classDefinitions']);
-        $object_brick->setFieldDefinitions($importData['fieldDefinitions']);
-        $object_brick->setLayoutDefinitions($importData['layoutDefinitions']);
-
-        try {
-            $object_brick->save();
-        } catch(Exception $e) {
-            echo 'An error has occurred: ' . $e->getMessage();
-        }
-
+        Service::importObjectBrickFromJson($object_brick, $json);
     }
 }

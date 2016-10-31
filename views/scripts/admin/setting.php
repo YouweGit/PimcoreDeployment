@@ -43,6 +43,7 @@
 <body>
 
 <form action="/plugin/PimcoreDeployment/admin/save-setting" method="POST" class="youwe-deploy-setting">
+    <input type="hidden" name="time" value="<?php echo time(); ?>" />
     <fieldset>
         <legend>Static table data to copy (overwriting everything)</legend>
             <?php foreach ($this->tables as $name => $table):?>

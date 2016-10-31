@@ -37,15 +37,19 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
             return new \Zend_Config($stuff, true);
         }
 
-        return new \Zend_Config(require $defaultconfig_file);
+        return new \Zend_Config((require $defaultconfig_file), true);
     }
 
     public static function setConfig($config)
     {
+//        var_dump($config);
         $customconfig_file = PIMCORE_CONFIGURATION_DIRECTORY . '/deploymentconfig.php';
 
         $writer = new \Zend_Config_Writer_Array();
         $writer->write($customconfig_file, $config);
+        $conf = self::getConfig();
+//        var_dump($conf);
+//        die('asdf');
     }
 
     /**

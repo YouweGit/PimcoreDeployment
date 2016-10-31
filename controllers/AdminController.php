@@ -34,8 +34,10 @@ class PimcoreDeployment_AdminController extends \Pimcore\Controller\Action\Admin
         $config = \PimcoreDeployment\Plugin::getConfig();
         $config->staticDataTables = $staticDataTables;
         \PimcoreDeployment\Plugin::setConfig($config);
-//        $this->redirect("plugin/PimcoreDeployment/admin/setting?time=" . time());
-        $this->forward('setting', null, null, ['time' => time()]);
+        sleep(10);
+//        die();
+        $this->redirect("plugin/PimcoreDeployment/admin/setting?time=" . time());
+//        $this->forward('setting', null, null, ['time' => time()]);
     }
 
     public function saveKeysAction()

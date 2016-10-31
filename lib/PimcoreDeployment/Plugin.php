@@ -34,7 +34,7 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
             while (!is_array($stuff)) {
                 $stuff = (require $customconfig_file);
             }
-            return new \Zend_Config($stuff);
+            return new \Zend_Config($stuff, true);
         }
 
         return new \Zend_Config(require $defaultconfig_file);

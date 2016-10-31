@@ -26,22 +26,6 @@ class PimcoreDeployment_AdminController extends \Pimcore\Controller\Action\Admin
         foreach ($config as $name => $conf) {
             $this->view->{$name} = $conf;
         }
-
-        // =======================
-
-        $sql = "SELECT * FROM documents";
-        $this->view->docs = $db->fetchAssoc($sql);
-        foreach($this->view->docs as &$doc)
-        {
-            // look up current migration setting by doc id
-            $doc['migration_mode'] = 'default';
-            $doc['migration_key'] = '';
-            $migration_object = \PimcoreDeployment\DeploymentDataMigrationManager::retrieveObjectByCnameAndId('documents', $doc['id']);
-            if($migration_object) {
-                $doc['migration_mode'] = $migration_object->getMode();
-                $doc['migration_key'] = $migration_object->getMigrationKey();
-            }
-        }
     }
 
     public function saveSettingAction()

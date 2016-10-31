@@ -56,7 +56,7 @@
     </fieldset>
     <button type="submit" name="save" value="1">Save</button>
 </form>
-
+<?php if(false): ?>
 <form action="/plugin/PimcoreDeployment/admin/save-keys" method="POST" class="youwe-deploy-setting">
     <fieldset>
         <legend>Documents to migrate</legend>
@@ -113,7 +113,7 @@
     </fieldset>
     <button type="submit" name="save" value="1">Save</button>
 </form>
-
+<?php endif ?>
 
 </body>
 </html>

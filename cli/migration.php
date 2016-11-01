@@ -28,6 +28,7 @@ $actionen = [
     'export-staticdata',
     'import-customsql',
     'import-field-collection',
+    'export-field-collection',
     'import-content',
     'export-content',
     'drop-views',
@@ -54,21 +55,22 @@ try {
             "USAGE INSTRUCTIONS" .
             "\n" .
             'Action parameter should be one of the following:' . "\n" .
-            'import-definition       : re-create pimcore classes from json definitions' . "\n" .
-            'export-definition       : re-create json definitions from pimcore classes'. "\n" .
-            'import-customlayout     : re-create pimcore custom layouts from json definitions' . "\n" .
-            'export-customlayout     : re-create json definitions from pimcore custom layouts'. "\n" .
-            'import-staticdata       : re-create selected tables from static data dump' . "\n" .
-            'export-staticdata       : re-create static data dump from selected tables'. "\n" .
-            'import-customsql        : re-create selected tables from static data dump' . "\n" .
-            'import-field-collection : Imports fields collections' . "\n" .
-            'import-content          : update content on server' . "\n" .
-            'export-content          : export selected content on local/dev'. "\n" .
-            'drop-views              : drop views or tables that should be views' . "\n" .
-            'clear-classes           : empty the classes table' . "\n" .
-            'list-definitionexport   : list the current jsons' . "\n" .
-            'export-dump             : export database to sql file' . "\n" .
-            'import-dump             : import database from sql file' . "\n" .
+            'import-definition        : re-create pimcore classes from json definitions' . "\n" .
+            'export-definition        : re-create json definitions from pimcore classes'. "\n" .
+            'import-customlayout      : re-create pimcore custom layouts from json definitions' . "\n" .
+            'export-customlayout      : re-create json definitions from pimcore custom layouts'. "\n" .
+            'import-staticdata        : re-create selected tables from static data dump' . "\n" .
+            'export-field-collection  : re-create pimcore field collections from json definitions' . "\n" .
+            'export-staticdata        : re-create static data dump from selected tables'. "\n" .
+            'import-customsql         : re-create selected tables from static data dump' . "\n" .
+            'import-field-collection  : Imports fields collections' . "\n" .
+            'import-content           : update content on server' . "\n" .
+            'export-content           : export selected content on local/dev'. "\n" .
+            'drop-views               : drop views or tables that should be views' . "\n" .
+            'clear-classes            : empty the classes table' . "\n" .
+            'list-definitionexport    : list the current jsons' . "\n" .
+            'export-dump              : export database to sql file' . "\n" .
+            'import-dump              : import database from sql file' . "\n" .
             "\n" .
             'Optional classes parameter may list the class names comma seperated.' . "\n" .
             "\n" .
@@ -156,6 +158,9 @@ switch ($opts->action) {
         break;
     case 'import-field-collection':
         $fc->import();
+        break;
+    case 'export-field-collection':
+        $fc->export();
         break;
     case 'import-dump':
         $mig->importDump();

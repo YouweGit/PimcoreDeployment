@@ -10,8 +10,8 @@ class Definition {
     public $path;
     private $db;
 
-    function __construct() {
-        $this->db = \Pimcore\Resource::get();
+    public function __construct() {
+        $this->db = \Pimcore\Db::get();
         $this->path = PIMCORE_WEBSITE_VAR . '/plugins/PimcoreDeployment/migration/classes/';
     }
 
@@ -25,7 +25,7 @@ class Definition {
             \Pimcore\File::mkdir($this->path);
         }
 
-        $list = new \Object_Class_List();
+        $list = new ClassDefinition\Listing;
         foreach ($list->load() as $class) {
             // check if class needs to be skipped ($classes)
             if ($classes && !in_array($class->getName(), $classes)) continue;
@@ -39,7 +39,7 @@ class Definition {
 
     /**
      * @static
-     * @param  Object_Class $class
+     * @param  ClassDefinition $class
      * @return string
      */
     public function generateClassDefinitionJson($class) {
@@ -52,7 +52,7 @@ class Definition {
             $data->userOwner,
             $data->userModification
         );
-
+        $data->propertyVisibility = $class->propertyVisibility;
         $json = \Zend_Json::encode($data);
         $json = \Zend_Json::prettyPrint($json);
         return $json;
@@ -226,6 +226,4 @@ class Definition {
         }
         return count($class_ids) > 0 ? $class_ids : false;
     }
-
-
 }

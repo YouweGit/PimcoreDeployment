@@ -1,6 +1,8 @@
 <?php
 
-require_once 'bootstrap.php';
+require_once __DIR__ . '/bootstrap.php';
+use Pimcore\Cache;
+use \Pimcore\Model\Version;
 if(\Pimcore\Version::getRevision() <= 3543) {   // only pimcore 3
     Zend_Session::start();
 }
@@ -99,9 +101,9 @@ $classids = ( ($opts->classids !== true && $opts->classids !== NULL) ? explode('
 //echo "Classes: " . var_export($classes,1) . "\n";
 
 Version::disable();
-Pimcore_Model_Cache::disable();
+Cache::disable();
 
-$plugin = "PimcoreDeployment";
+$plugin = 'PimcoreDeployment';
 if (!\Pimcore\ExtensionManager::isEnabled('plugin', $plugin)) {
     echo "\nEnabling plugin on the fly.\n";
     \Pimcore\ExtensionManager::enable('plugin', $plugin);

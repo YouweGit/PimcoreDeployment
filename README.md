@@ -137,6 +137,37 @@ an improvised ID. Rather follow this route:
 * This means the plugin is installed.
 
 
+Update system.php and config.php from ini files
+-----------------------------------------
+System.php can be update with:
+```
+    ./plugins/PimcoreDeployment/cli/update-mysql-credentials.sh --mysql-credentials-path [PATH_TO_INI_FILE] 
+```
+
+The ini file structure that we expect is: 
+```
+ * mysql_hostname=[HOSTNAME]
+ * mysql_port=[PORT]
+ * mysql_database=[DATABASE_NAME]
+ * mysql_user=[DATABASE_USERNAME]
+ * mysql_password=[DATABASE_PASSWORD]
+ 
+```
+
+Cache.php can be update with:
+```
+    ./plugins/PimcoreDeployment/cli/update-redis-credentials.sh --redis-credentials-path [PATH_TO_INI_FILE] 
+```
+The ini file structure that we expect is: 
+```
+ * redis_hostname=[HOSTNAME]
+ * redis_port=[PORT]
+ * redis_database=[DATABASE]
+ 
+```
+Keep in mind that because a lot of environments do not have cache.php
+the command will create a default one for you and update its values from ini file
+
 
 Troubleshooting
 ---------------

@@ -43,7 +43,7 @@ class Customsql extends DAbstract
 
         $u = $cnf->database->params->username;
         $p = $cnf->database->params->password;
-        if($p) $p = " -p " . $p;
+        if($p) $p = " -p" . $p;
         $db = $cnf->database->params->dbname;
         $h = $cnf->database->params->host;
 

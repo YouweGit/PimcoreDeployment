@@ -36,11 +36,11 @@ class UpdateBuildCredentials
         $hostname = $this->iniFile->get('mysql_hostname');
         $port = $this->iniFile->get('mysql_port');
         $database = $this->iniFile->get('mysql_database');
-        $user = $this->iniFile->get('mysql_user');
+        $username = $this->iniFile->get('mysql_user');
         $password = $this->iniFile->get('mysql_password');
 
         // Validate the content of the ini file
-        if (!$hostname || !$port || !$database || !$user || !$password) {
+        if (!$hostname || !$port || !$database || !$username || !$password) {
             throw new \InvalidArgumentException('The ini file provided has invalid structure or missing data');
         }
 
@@ -63,13 +63,13 @@ class UpdateBuildCredentials
             throw new \InvalidArgumentException('Config file does not exist at ' . $file);
         }
 
-        $data = "# database\n
-DBHost=$hostname\n
-DBName=$database\n
-DBUser=$user \n
-DBPassword=$password\n 
-DBPort=$port\n
-";
+        $data =     "# database\n";
+        $data .=    "DBHost=" . $hostname . "\n";
+        $data .=    "DBName=" . $database . "\n";
+        $data .=    "DBUser=" . $username . "\n";
+        $data .=    "DBPassword=" . $password . "\n";
+        $data .=    "DBPort=" . $port . "\n";
+        $data .=    "\n";
 
         file_put_contents($file, $data);
 

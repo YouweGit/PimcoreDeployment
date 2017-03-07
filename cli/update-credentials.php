@@ -20,13 +20,15 @@ $memory = memory_get_usage();
 $action = [
     'update-mysql-credentials',
     'update-redis-credentials',
+    'update-build-credentials',
 ];
 
 try {
     $opts = new Zend_Console_Getopt([
         'action|a=s'                   => '',
         'mysql-credentials-path|mcp-s' => '',
-        'redis-credentials-path|rcp-s' => ''
+        'redis-credentials-path|rcp-s' => '',
+        'build-credentials-path|bcp-s' => ''
     ]);
     $opts->parse();
 
@@ -37,7 +39,8 @@ try {
             "\n" .
             'Action parameter should be one of the following:' . "\n" .
             'update-mysql-credentials : updates mysql credentials from an ini file' . "\n".
-            'update-redis-credentials : updates redis credentials from an ini file' . "\n"
+            'update-redis-credentials : updates redis credentials from an ini file' . "\n".
+            'update-build-credentials : updates build credentials from an ini file' . "\n"
         );
     }
 
@@ -51,6 +54,7 @@ try {
 
 $mysqlCredentialsPath = $opts->getOption('mysql-credentials-path');
 $redisCredentialsPath = $opts->getOption('redis-credentials-path');
+$buildCredentialsPath = $opts->getOption('build-credentials-path');
 
 
 switch ($opts->action) {
@@ -62,4 +66,9 @@ switch ($opts->action) {
         $urc = new \PimcoreDeployment\UpdateRedisCredentials($redisCredentialsPath);
         $urc->updateCacheFile();
         break;
+    case 'update-build-credentials':
+        $urc = new \PimcoreDeployment\UpdateBuildCredentials($buildCredentialsPath);
+        $urc->updateBuildFile();
+        break;
+
 }

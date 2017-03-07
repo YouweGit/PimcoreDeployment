@@ -58,7 +58,7 @@ class UpdateBuildCredentials
          */
 
         // Get and validate system.php file
-        $file = PIMCORE_DOCUMENT_ROOT . '/tools/build/local.cfg';
+        $file = realpath(__DIR__) . '/../../../../tools/build/local.cfg';
         if (!file_exists($file) || !is_readable($file) || !is_writable($file)) {
             throw new \InvalidArgumentException('Config file does not exist at ' . $file);
         }

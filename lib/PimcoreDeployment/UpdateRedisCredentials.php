@@ -68,7 +68,7 @@ class UpdateRedisCredentials
         ini_set('session.save_path', 'tcp://$hostname:$port?database=$database');
 
 CONFIG;
-        $sessionConfigPath = PIMCORE_CUSTOM_CONFIGURATION_DIRECTORY . PATH_SEPARATOR . 'redis_session.php';
+        $sessionConfigPath = PIMCORE_CUSTOM_CONFIGURATION_DIRECTORY . DIRECTORY_SEPARATOR . 'redis_session.php';
         file_put_contents($sessionConfigPath, $sessionConfigContent);
     }
 }

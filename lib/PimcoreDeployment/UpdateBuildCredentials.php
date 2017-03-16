@@ -45,12 +45,12 @@ class UpdateBuildCredentials
         }
 
         /*
-         * /data/projects/hotbath-pimcore/tools/build/local.cfg
+         * /data/projects/PROJECT_NAME/tools/build/local.cfg
          *
          * # database 
          *
          * DBHost=127.0.0.1 
-         * DBName=hotbath 
+         * DBName=DATABASE_NAME 
          * DBUser=root 
          * DBPassword=root 
          * DBPort=3306

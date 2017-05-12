@@ -3,20 +3,20 @@
 namespace PimcoreDeployment;
 
 use Exception;
-use Pimcore\Db;
 use Pimcore\File;
-use Pimcore\Model\Object\ClassDefinition;
+use Pimcore\Model\Object;
 use Pimcore\Model\Object\ClassDefinition\CustomLayout as PimcoreCustomLayout;
 use Zend_Json_Exception;
-use Pimcore\Model\Object;
 
-class CustomLayout {
+class CustomLayout
+{
     /** @var string */
     public $path;
     /** @var mixed|\Zend_Db_Adapter_Abstract */
     private $db;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->db = \Pimcore\Resource::get();
         $this->path = PIMCORE_WEBSITE_VAR . '/plugins/PimcoreDeployment/migration/custom_layouts/';
     }
@@ -24,7 +24,8 @@ class CustomLayout {
     /**
      * Exports custom layouts to json file
      */
-    public function export() {
+    public function export()
+    {
         File::setDefaultMode(0755);
 
         if (!is_dir($this->path)) {
@@ -36,7 +37,7 @@ class CustomLayout {
         foreach ($list->load() as $customLayout) {
 
             $json = $this->generateCustomLayoutJson($customLayout);
-            $filename = $this->path . 'custom_layout_' . $customLayout->getName() . '.json';
+            $filename = $this->path . 'custom_layout_' . $customLayout->getClassId() . '_' . $customLayout->getName() . '.json';
             echo 'Exporting: ' . str_replace(PIMCORE_WEBSITE_VAR, '', $filename) . "\n";
             File::put($filename, $json);
         }
@@ -46,7 +47,8 @@ class CustomLayout {
      * @param PimcoreCustomLayout $customLayout
      * @return string
      */
-    public function generateCustomLayoutJson($customLayout) {
+    public function generateCustomLayoutJson($customLayout)
+    {
         unset(
             $customLayout->creationDate,
             $customLayout->modificationDate,
@@ -55,6 +57,7 @@ class CustomLayout {
         );
         $json = \Zend_Json::encode($customLayout);
         $json = \Zend_Json::prettyPrint($json);
+
         return $json;
     }
 
@@ -63,8 +66,9 @@ class CustomLayout {
      * Imports custom layouts from json files
      * @throws \Exception
      */
-    public function import() {
-        $this->db->query('TRUNCATE custom_layouts');
+    public function import()
+    {
+        $this->db->query('TRUNCATE custom_layouts')->execute();
         foreach (glob($this->path . '*.json') as $filename) {
             echo 'Importing: ' . str_replace(PIMCORE_WEBSITE_VAR, '', $filename) . "\n";
             $this->save($filename);
@@ -76,18 +80,19 @@ class CustomLayout {
      * @throws Exception
      * @throws Zend_Json_Exception
      */
-    public function save($filename) {
+    public function save($filename)
+    {
         $json = file_get_contents($filename);
         $importData = \Zend_Json::decode($json);
 
         // Safe to do an insert with id as long as custom_layouts is truncated at import()
         $this->db->insert('custom_layouts', [
-            'id' => $importData['id'],
-            'name' => $importData['name'],
+            'id'          => $importData['id'],
+            'name'        => $importData['name'],
             'description' => $importData['description'],
-            'userOwner' => $importData['userOwner'],
-            'classId' => $importData['classId'],
-            'default' => $importData['default'],
+            'userOwner'   => $importData['userOwner'],
+            'classId'     => $importData['classId'],
+            'default'     => $importData['default'],
         ]);
 
         $customLayout = PimcoreCustomLayout::getById($importData['id']);

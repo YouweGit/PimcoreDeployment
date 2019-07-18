@@ -30,9 +30,16 @@ class Plugin extends PluginLib\AbstractPlugin implements PluginLib\PluginInterfa
             // weird patch necessary for specific servers that return
             // an integer instead of an array from the "require" function
             // every X json calls ?!?!
-            $stuff = false;
-            while (!is_array($stuff)) {
+            $boolean = false;
+            $numberOfAttempts = 0;
+            
+            while (!is_array($boolean)) {
+                if ($numberOfAttemps > 100) {
+                    throw new \Exception("There is filled deploymentconfig.php found.");
+                }
+                
                 $stuff = (require $customconfig_file);
+                $numberOfAttemps++;
             }
             return new \Zend_Config($stuff, true);
         }

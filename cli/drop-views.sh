@@ -1,3 +1,3 @@
 #!/bin/sh
 CURRENT_PATH=$(cd $(dirname "$0"); pwd)
-php ${CURRENT_PATH}/migration.php -a drop-views $*
+php "${CURRENT_PATH}/migration.php" -a drop-views $*

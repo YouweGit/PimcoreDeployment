@@ -91,7 +91,7 @@ class Migration extends DAbstract
 
         $tables = implode(' ', $this->staticDataTables);
         if(count($this->staticDataTables) > 0) {
-            $command = "mysqldump $purged --add-drop-table -u$u -p$p -h$h $db $tables | sed -e '/DEFINER/d' > $file";
+            $command = "mysqldump $purged --add-drop-table -u$u -p$p -h$h $db $tables | sed -e '/DEFINER/d' > \"$file\"";
         }
         else {
             // REMOVE existing file!!!
@@ -117,7 +117,7 @@ class Migration extends DAbstract
 
         $zipFile = $this->backupPath . $this->dumpFileName;
 
-        $command = "unzip -p $zipFile | mysql -u$u -p$p -h$h $db";
+        $command = "unzip -p \"$zipFile\" | mysql -u$u -p$p -h$h $db";
         print "EXEC: $command \n";
         exec($command, $output, $return_var);
     }

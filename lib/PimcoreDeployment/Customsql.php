@@ -53,7 +53,7 @@ class Customsql extends DAbstract
 
         foreach($sqlFiles as $sf)
         {
-            $command = "cat $sf | mysql -u$u $p -h$h $db";
+            $command = "cat \"$sf\" | mysql -u$u $p -h$h $db";
             print "EXEC: $command \n";
             exec($command, $output, $return_var);
         }
